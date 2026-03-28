@@ -1,0 +1,49 @@
+<section class="component" data-component-id="{{ componentId }}">
+  <div class="container mx-auto">
+    <div class="py-24 lg:py-32 relative">
+      <div class="m-auto absolute inset-0 -z-10 aspect-square rounded-full blur-[200px] bg-accent-500/50 max-w-4xl -translate-y-1/2 w-[65%]" aria-hidden="true"></div>
+      {% if properties.headline or properties.title or properties.subtitle %}
+        <div class="flex flex-col gap-4 mb-8 text-center relative">
+          {% if properties.headline %}
+            <div>
+              <span class="inline-block px-6 py-2 rounded-full border-2 border-white/5 bg-white/5 text-accent-100 text-sm font-semibold hover:translate-y-[-2px] transition-transform duration-300 ease-in-out" data-dsr>
+                {{ properties.headline | renderString }}
+              </span>
+            </div>
+          {% endif %}
+          {% if properties.title %}
+            <h1 class="text-4xl lg:text-5xl font-bold text-t-primary" data-dsr>
+              {{ properties.title | renderString }}
+            </h1>
+          {% endif %}
+          {% if properties.subtitle %}
+            <p class="text-base text-t-primary/50" data-dsr>
+              {{ properties.subtitle | renderString }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="max-w-5xl mx-auto">
+      <div class="grid gap-8 {{ gridClass }}">
+        {% for item in properties.items %}
+          <div data-dsr>
+            <div class="bg-white/5 text-t-primary border-2 border-white/5 rounded-xl p-6 relative" x-data="{ isOpen: false }">
+              <button class="w-full flex justify-between items-center" @click="isOpen = !isOpen">
+                <h4 class="text-left text-xl font-semibold">
+                  {{ item.question | renderString }}
+                </h4>
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-accent-600 size-8 hover:scale-110 transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': isOpen }" viewBox="0 0 24 24"><path fill="currentColor" d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"/></svg>
+              </button>
+              <div x-ref="content" :style="isOpen ? `max-height: ${$refs.content.scrollHeight}px` : ''" class="overflow-hidden transition-all ease-in-out duration-150 max-h-0">
+                <p class="pt-2 text-sm text-gray-200 whitespace-pre-line" x-cloak>
+                  {{ item.answer | renderString }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

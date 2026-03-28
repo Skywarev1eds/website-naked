@@ -1,0 +1,137 @@
+{% if global.components.footer.show_shop_name or global.components.footer.show_logo or global.components.footer.show_socials or global.components.footer.links.length > 0 %}
+  <footer class="component" data-component-id="footer">
+    <div class="px-8 lg:px-4 py-12 lg:py-16 bg-black/10 border-t border-t-white/5 overflow-hidden relative">
+      <div class="m-auto absolute inset-0 -z-10 aspect-square rounded-full blur-[200px] bg-accent-500/50 max-w-4xl translate-y-[80%] w-[65%]" aria-hidden="true"></div>
+      <div class="container mx-auto text-t-primary">
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex-shrink-0 lg:max-w-md">
+            {% if global.components.footer.show_shop_name or (global.components.navbar.show_logo and shop.image_url) %}
+              <div class="mb-4">
+                {% if global.components.footer.show_logo and shop.image_url %}
+                  <img src="{{ shop.image_url }}" alt="{{ shop.name }}" class="max-h-10 rounded-lg mb-2" />
+                {% endif %}
+                {% if global.components.footer.show_shop_name %}
+                  <p class="text-xl font-bold text-t-primary">{{ shop.name }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if global.components.footer.show_shop_description %}
+              <div class="mb-8">
+                <p class="text-t-primary/50 font-light">
+                  {{ shop.description }}
+                </p>
+              </div>
+            {% endif %}
+
+            {% if global.components.footer.copyright %}
+              <div class="mb-4">
+                <p class="text-t-primary/50 text-sm">
+                  <span class="whitespace-pre-line">{{ global.components.footer.copyright | renderString }}</span>
+                </p>
+              </div>
+            {% endif %}
+
+            {% if global.components.footer.show_socials and (shop.discord_url or shop.telegram_url or shop.instagram_url or shop.tiktok_url or shop.youtube_url) %}
+              <div class="flex items-center gap-4 mb-8">
+                {% if shop.discord_url %}
+                  <a href="{{ shop.discord_url }}" class="bg-white/5 border border-white/10 p-2 rounded-lg text-t-primary/50 transition hover:text-[#5865f2]" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.1.1 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.1 16.1 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12"/></svg>
+                  </a>
+                {% endif %}
+                
+                {% if shop.telegram_url %}
+                  <a href="{{ shop.telegram_url }}" class="bg-white/5 border border-white/10 p-2 rounded-lg text-t-primary/50 transition hover:text-[#54a9eb]" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Remix Icon by Remix Design - https://github.com/Remix-Design/RemixIcon/blob/master/License --><path fill="currentColor" d="M2.148 11.81q7.87-3.429 10.497-4.522c4.999-2.079 6.037-2.44 6.714-2.452c.15-.003.482.034.698.21c.182.147.232.347.256.487s.054.459.03.708c-.27 2.847-1.443 9.754-2.04 12.942c-.252 1.348-.748 1.8-1.23 1.845c-1.045.096-1.838-.69-2.85-1.354c-1.585-1.039-2.48-1.686-4.018-2.699c-1.777-1.171-.625-1.815.388-2.867c.265-.275 4.87-4.464 4.96-4.844c.01-.048.021-.225-.084-.318c-.105-.094-.26-.062-.373-.036q-.239.054-7.592 5.018q-1.079.74-1.952.721c-.643-.014-1.88-.363-2.798-.662c-1.128-.367-2.024-.56-1.946-1.183q.061-.486 1.34-.994"/></svg>
+                  </a>
+                {% endif %}
+                
+                {% if shop.instagram_url %}
+                  <a href="{{ shop.instagram_url }}" class="bg-white/5 border border-white/10 p-2 rounded-lg text-t-primary/50 transition hover:text-[#e1306c]" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Material Design Icons by Pictogrammers - https://github.com/Templarian/MaterialDesign/blob/master/LICENSE --><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"/></svg>
+                  </a>
+                {% endif %}
+                
+                {% if shop.tiktok_url %}
+                  <a href="{{ shop.tiktok_url }}" class="bg-white/5 border border-white/10 p-2 rounded-lg text-t-primary/50 transition hover:text-[#f1204a]" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"/></svg>
+                  </a>
+                {% endif %}
+
+                {% if shop.youtube_url %}
+                  <a href="{{ shop.youtube_url }}" class="bg-white/5 border border-white/10 p-2 rounded-lg text-t-primary/50 transition hover:text-[#ff0000]" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Material Design Icons by Pictogrammers - https://github.com/Templarian/MaterialDesign/blob/master/LICENSE --><path fill="currentColor" d="m10 15l5.19-3L10 9zm11.56-7.83c.13.47.22 1.1.28 1.9c.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83c-.25.9-.83 1.48-1.73 1.73c-.47.13-1.33.22-2.65.28c-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44c-.9-.25-1.48-.83-1.73-1.73c-.13-.47-.22-1.1-.28-1.9c-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83c.25-.9.83-1.48 1.73-1.73c.47-.13 1.33-.22 2.65-.28c1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44c.9.25 1.48.83 1.73 1.73"/></svg>
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap lg:flex-nowrap gap-8 lg:gap-20">
+            {% if global.components.footer.links.length > 0 %}
+              <div class="flex-1 min-w-0">
+                <p class="text-base sm:text-lg font-bold whitespace-nowrap text-t-primary mb-3 sm:mb-4">
+                  {% if global.components.footer.links_title %}{{ global.components.footer.links_title }}{% else %}Navigation{% endif %}
+                </p>
+                <ul class="space-y-1 sm:space-y-2">
+                  {% for link in global.components.footer.links %}
+                    <li>
+                      <a
+                        href="{{ link.link | shopUrl }}"
+                        target="{{ 'blank' if link.new_tab }}"
+                        class="text-sm sm:text-base whitespace-nowrap text-t-primary/50 transition hover:text-t-primary"
+                      >
+                        {{ link.text }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            
+            {% if global.components.footer.links_2.length > 0 %}
+              <div class="flex-1 min-w-0">
+                <p class="text-base sm:text-lg font-bold whitespace-nowrap text-t-primary mb-3 sm:mb-4">
+                  {{ global.components.footer.links_2_title }}
+                </p>
+                <ul class="space-y-1 sm:space-y-2">
+                  {% for link in global.components.footer.links_2 %}
+                    <li>
+                      <a
+                        href="{{ link.link | shopUrl }}"
+                        target="{{ 'blank' if link.new_tab }}"
+                        class="text-sm sm:text-base whitespace-nowrap text-t-primary/50 transition hover:text-t-primary"
+                      >
+                        {{ link.text }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            
+            {% if global.components.footer.links_3.length > 0 %}
+              <div class="flex-1 min-w-0">
+                <p class="text-base sm:text-lg font-bold whitespace-nowrap text-t-primary mb-3 sm:mb-4">
+                  {{ global.components.footer.links_3_title }}
+                </p>
+                <ul class="space-y-1 sm:space-y-2">
+                  {% for link in global.components.footer.links_3 %}
+                    <li>
+                      <a
+                        href="{{ link.link | shopUrl }}"
+                        target="{{ 'blank' if link.new_tab }}"
+                        class="text-sm sm:text-base whitespace-nowrap text-t-primary/50 transition hover:text-t-primary"
+                      >
+                        {{ link.text }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endif %}

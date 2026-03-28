@@ -1,0 +1,245 @@
+<nav class="component" data-component-id="navbar">
+  <div x-data="navbar">
+    <div class="bg-background/50 backdrop-blur-2xl shadow-md">
+      <div class="mx-auto max-w-screen-2xl p-4">
+        <div class="flex justify-between items-center relative z-30">
+          <a href="{{ '/' | shopUrl }}" class="flex justify-start items-center gap-4 grow basis-0">
+            {% if global.components.navbar.show_logo %}
+            <img
+              src="{{ shop.image_url }}"
+              alt="{{ shop.name }}"
+              class="max-h-10 rounded-lg"
+            />
+            {% endif %}
+            {% if global.components.navbar.show_shop_name %}
+            <h1 class="text-2xl font-bold text-t-primary">{{ shop.name }}</h1>
+            {% endif %}
+          </a>
+          <div class="hidden lg:flex justify-center items-center gap-2">
+            {% for link in global.components.navbar.left_links %}
+            {% set lActive = false %}
+            {% if (link.link == '/' and templateName == 'shop') or (link.link == '/cart' and templateName == 'cart') or (link.link == '/products' and templateName == 'products') or (link.link == '/terms-of-service' and templateName == 'terms') or (link.link == '/privacy-policy' and templateName == 'privacy-policy') or (link.link == '/refund-policy' and templateName == 'refund-policy') or (link.link == '/feedback' and templateName == 'feedback') or (link.link == '/status' and templateName == 'status') or (link.link == '/faq' and templateName == 'faq') or (link.link == '/blog' and templateName == 'blog') %}
+            {% set lActive = true %}
+            {% endif %}
+
+            {% if lActive and link.shape == 'regular' %}
+            {% set lClass = 'text-gray-100 border-transparent hover:text-t-primary' %}
+            {% elif not lActive and link.shape == 'regular' %}
+            {% set lClass = 'text-t-primary/70 opacity-50 border-transparent hover:opacity-100' %}
+            {% elif lActive and link.shape == 'button' %}
+            {% set lClass = 'bg-accent-500/50 border-accent-500 text-t-accent' %}
+            {% elif not lActive and link.shape == 'button' %}
+            {% set lClass = 'bg-accent-500 border-accent-500 text-t-accent hover:bg-accent-500/50 transition-colors duration-300 ease-in-out' %}
+            {% endif %}
+
+            <a
+              href="{{ link.link | shopUrl }}"
+              target="{{ '_blank' if link.new_tab }}"
+              class="px-6 py-2 rounded-full text-base font-medium border-2 {{ lClass }}"
+            >
+              {{ link.text }}
+            </a>
+            {% endfor %}
+          </div>
+          <div class="hidden lg:flex justify-end items-center gap-4 grow basis-0">
+            {% for link in global.components.navbar.right_links %}
+            {% set lClass = 'text-gray-700 hover:text-gray-900 text-sm font-medium' %}
+            {% if link.shape == 'button' %}
+            {% set lClass = 'inline-flex items-center gap-4 border-2 font-semibold bg-accent-500 border-accent-500 text-t-accent hover:bg-accent-500/50 hover:text-t-primary transition-colors duration-300 ease-in-out' %}
+            {% endif %}
+            <a
+              href="{{ link.link | shopUrl }}"
+              target="{{ '_blank' if link.new_tab }}"
+              class="px-6 py-2 rounded-full {{ lClass }}"
+            >
+              {{ link.text }}
+            </a>
+            {% endfor %}
+
+            {% if not global.components.navbar.hide_currency_selector %}
+              {% if currency_rates_usd | length > 1 %}
+                <div class="currency-selector lg">
+                  <select class="font-semibold rounded-full border-2 bg-white/5 border-white/5 text-transparent" style="width: 80px; height: 44px;">
+                    {% for code, rate in currency_rates_usd %}
+                      <option value="{{ code }}">
+                        <span class="flex items-center justify-between">
+                          <span>
+                            <span class="inline-block w-10 bg-white/5 rounded text-t-primary text-center px-1 py-px mr-1 symbol">{{ currency_symbols[code] }}</span>
+                            <span class="text-t-primary code">{{ code.toUpperCase() }}</span>
+                          </span>
+                          {% if code.toUpperCase() == currency %}
+                            <span class="text-t-primary/75 text-xs default">Default</span>
+                          {% endif %}
+                        </span>
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endif %}
+            {% endif %}
+
+            {% if not global.components.navbar.hide_customer_dashboard %}
+              {% if shop_customer %}
+                <a
+                  href="{{ '/customer/dashboard' | shopUrl }}"
+                  class="px-6 py-2 rounded-full inline-flex items-center justify-center p-2.5 relative font-semibold border-2 bg-white/5 border-white/5 text-t-primary hover:bg-white/10 hover:text-t-primary transition-colors duration-300 ease-in-out"
+                >
+                  My Account
+                </a>
+              {% else %}
+                <button
+                  type="button"
+                  @click="appCustomer.loginOrRedirect()"
+                  class="px-6 py-2 rounded-full inline-flex items-center justify-center p-2.5 relative font-semibold border-2 bg-white/5 border-white/5 text-t-primary hover:bg-white/10 hover:text-t-primary transition-colors duration-300 ease-in-out"
+                >
+                  Login
+                </button>
+              {% endif %}
+            {% endif %}
+
+            {% if not global.components.navbar.hide_cart %}
+              <a href="{{ '/cart' | shopUrl }}" class="inline-flex items-center justify-center p-2.5 relative font-semibold rounded-full border-2 bg-white/5 border-white/5 text-t-primary hover:bg-white/10 hover:text-t-primary transition-colors duration-300 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><path fill="currentColor" d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h11q.425 0 .713.288T19 16t-.288.713T18 17H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H2q-.425 0-.712-.288T1 3t.288-.712T2 2h1.625q.275 0 .525.15t.375.425zm3.35 7h7z"/></svg>
+                <template x-if="appCart.countWithQuantities > 0">
+                  <span class="absolute -top-2 -right-2 inline-flex items-center justify-center size-5 bg-accent-500 text-white text-[0.625rem] rounded-full" x-text="appCart.countWithQuantities">
+                </template>
+              </a>
+            {% endif %}
+          </div>
+          <div class="lg:hidden">
+            <div class="relative flex items-center gap-3 max-h-10 lg:hidden">
+              {% if not global.components.navbar.hide_currency_selector %}
+                {% if currency_rates_usd | length > 1 %}
+                  <div class="currency-selector xs">
+                    <select class="font-semibold bg-transparent text-transparent">
+                      {% for code, rate in currency_rates_usd %}
+                        <option value="{{ code }}">
+                          <span class="flex items-center justify-between">
+                            <span>
+                              <span class="inline-block w-10 bg-white/5 rounded text-t-primary text-center px-1 py-px mr-1 symbol">{{ currency_symbols[code] }}</span>
+                              <span class="text-t-primary code">{{ code.toUpperCase() }}</span>
+                            </span>
+                            {% if code.toUpperCase() == currency %}
+                              <span class="text-t-primary/75 text-xs default">Default</span>
+                            {% endif %}
+                          </span>
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endif %}
+              {% endif %}
+              {% if not global.components.navbar.hide_cart %}
+                <a href="{{ '/cart' | shopUrl }}" class="inline-flex items-center justify-center relative text-t-primary hover:text-accent-500 transition-colors duration-300 ease-in-out">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24"><path fill="currentColor" d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h11q.425 0 .713.288T19 16t-.288.713T18 17H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H2q-.425 0-.712-.288T1 3t.288-.712T2 2h1.625q.275 0 .525.15t.375.425zm3.35 7h7z"/></svg>
+                  <template x-if="appCart.countWithQuantities > 0">
+                    <span class="absolute -top-3 -right-3 inline-flex items-center justify-center size-[1.125rem] bg-accent-500 text-white text-[0.625rem] rounded-full">
+                      <span x-text="appCart.countWithQuantities > 9 ? '9+' : appCart.countWithQuantities"></span>
+                    </span>
+                  </template>
+                </a>
+              {% endif %}
+              <button @click="toggleMobileMenu" x-ref="mobileMenuBtn" class="p-6">
+                <div class="m-auto h-0.5 w-5 rounded bg-gray-300 transition duration-300" x-bind:class="{ 'translate-y-1.5 rotate-45': showMobileMenu }"></div>
+                <div class="m-auto mt-2 h-0.5 w-5 rounded bg-gray-300 transition duration-300" x-bind:class="{ '-translate-y-1 -rotate-45': showMobileMenu }"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          x-cloak
+          class="fixed inset-0 z-20 h-screen w-screen origin-bottom scale-y-0 bg-background/95 backdrop-blur-2xl transition duration-500 lg:hidden"
+          :class="{ 'origin-top scale-y-100': showMobileMenu }">
+        </div>
+        <div
+          x-cloak
+          x-ref="mobileMenu"
+          class="absolute top-full left-0 right-0 mx-auto z-20 w-[calc(100%-2rem)] origin-top translate-y-1 rounded-xl border-2 border-white/5 bg-white/5 p-6 transition-all duration-300 lg:hidden"
+          :class="`${showMobileMenu ? 'visible scale-100 opacity-100' : 'invisible scale-95 opacity-0'}`">
+          <div class="w-full text-gray-300">
+            <ul class="flex flex-col gap-6 font-medium tracking-wide">
+              {% for link in global.components.navbar.left_links %}
+              {% set lActive = false %}
+              {% if (link.link == '/' and templateName == 'shop') or (link.link == '/cart' and templateName == 'cart') or (link.link == '/products' and templateName == 'products') or (link.link == '/terms-of-service' and templateName == 'terms') or (link.link == '/privacy-policy' and templateName == 'privacy-policy') or (link.link == '/refund-policy' and templateName == 'refund-policy') or (link.link == '/feedback' and templateName == 'feedback') or (link.link == '/status' and templateName == 'status') or (link.link == '/faq' and templateName == 'faq') or (link.link == '/blog' and templateName == 'blog') %}
+              {% set lActive = true %}
+              {% endif %}
+              <li>
+                <a
+                  href="{{ link.link | shopUrl }}"
+                  target="{{ '_blank' if link.new_tab }}"
+                  class="block transition {{ 'text-accent-500' if lActive else 'text-gray-300' }} hover:text-t-primary"
+                >
+                  {{ link.text }}
+                </a>
+              </li>
+              {% endfor %}
+              {% for link in global.components.navbar.right_links %}
+              {% set lActive = false %}
+              {% if (link.link == '/' and templateName == 'shop') or (link.link == '/cart' and templateName == 'cart') or (link.link == '/products' and templateName == 'products') or (link.link == '/terms-of-service' and templateName == 'terms') or (link.link == '/privacy-policy' and templateName == 'privacy-policy') or (link.link == '/refund-policy' and templateName == 'refund-policy') or (link.link == '/feedback' and templateName == 'feedback') or (link.link == '/status' and templateName == 'status') or (link.link == '/faq' and templateName == 'faq') or (link.link == '/blog' and templateName == 'blog') %}
+              {% set lActive = true %}
+              {% endif %}
+              <li>
+                <a
+                  href="{{ link.link | shopUrl }}"
+                  target="{{ '_blank' if link.new_tab }}"
+                  class="block transition {{ 'text-accent-500' if lActive else 'text-gray-300' }} hover:text-t-primary"
+                >
+                  {{ link.text }}
+                </a>
+              </li>
+              {% endfor %}
+              {% if not global.components.navbar.hide_customer_dashboard %}
+                {% if shop_customer %}
+                  <li>
+                    <a
+                      href="{{ '/customer/dashboard' | shopUrl }}"
+                      class="block transition text-gray-300 hover:text-t-primary"
+                    >
+                      My Account
+                    </a>
+                  </li>
+                {% else %}
+                  <li>
+                    <button
+                      type="button"
+                      @click="appCustomer.loginOrRedirect()"
+                      class="block w-full text-left transition text-gray-300 hover:text-t-primary"
+                    >
+                      Login
+                    </button>
+                  </li>
+                {% endif %}
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('navbar', () => ({
+      showMobileMenu: false,
+      toggleMobileMenu() {
+        this.showMobileMenu = !this.showMobileMenu;
+
+        if (this.showMobileMenu) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.removeProperty('overflow');
+        }
+      },
+      init() {
+        // Close mobile menu when clicking outside or on a link.
+        document.addEventListener('click', (event) => {
+          if (!this.$refs.mobileMenuBtn) return;
+          if (!this.showMobileMenu) return;
+          if (this.$refs.mobileMenuBtn.contains(event.target)) return;
+
+          this.toggleMobileMenu();
+        });
+      },
+    }));
+  });
+</script>

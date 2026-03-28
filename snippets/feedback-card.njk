@@ -1,0 +1,72 @@
+<div x-data="{ expanded: false }" @click="() => { expanded = !expanded; $nextTick(() => { $dispatch('reload:masonry') }); }" class="cursor-pointer">
+  <div class="border-2 border-white/5 rounded-xl bg-[rgba(255,255,255,0.01)] text-t-primary hover:bg-[rgba(255,255,255,0.05)] transition-colors duration-300 ease-in-out">
+    <div class="flex-1 text-left p-4">
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex">
+          {% for i in range(0, feedback.rating) %}
+            <span class="text-accent-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.275l-4.15 2.5q-.275.175-.575.15t-.525-.2t-.35-.437t-.05-.588l1.1-4.725L3.775 10.8q-.25-.225-.312-.513t.037-.562t.3-.45t.55-.225l4.85-.425l1.875-4.45q.125-.3.388-.45t.537-.15t.537.15t.388.45l1.875 4.45l4.85.425q.35.05.55.225t.3.45t.038.563t-.313.512l-3.675 3.175l1.1 4.725q.075.325-.05.588t-.35.437t-.525.2t-.575-.15z"/></svg>
+            </span>
+          {% endfor %}
+          {% for i in range(0, 5 - feedback.rating) %}
+            <span class="text-t-primary/50">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24"><path fill="currentColor" d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm3.15.45l-4.15 2.5q-.275.175-.575.15t-.525-.2t-.35-.437t-.05-.588l1.1-4.725L3.775 10.8q-.25-.225-.312-.513t.037-.562t.3-.45t.55-.225l4.85-.425l1.875-4.45q.125-.3.388-.45t.537-.15t.537.15t.388.45l1.875 4.45l4.85.425q.35.05.55.225t.3.45t.038.563t-.313.512l-3.675 3.175l1.1 4.725q.075.325-.05.588t-.35.437t-.525.2t-.575-.15zm0-5.025"/></svg>
+            </span>
+          {% endfor %}
+        </div>
+        <span class="text-xs text-t-primary/50">{{ feedback.created_at | formatDate }}</span>
+      </div>
+      <p class="text-base text-t-primary/50 break-words truncate" :class="{ 'truncate': !expanded }">
+        {{ feedback.message }}
+      </p>
+      {% if feedback.reply %}
+        <div class="mt-4 bg-[rgba(255,255,255,0.05)] p-4 rounded-xl">
+          <p class=" pl-2 text-sm text-t-primary/50 border-l-2 border-accent-500 break-words truncate" :class="{ 'truncate': !expanded }">
+            {{ feedback.reply }}
+          </p>
+          <p class="text-xs text-right text-t-primary/50 mt-2">
+            Reply from <span class="text-accent-500">{{ shop.name }}</span> at {{ feedback.replied_at | formatDate }}
+          </p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="px-4 py-2 text-xs text-t-primary/70 bg-[rgba(255,255,255,0.01)] border-t border-white/5">
+      <div class="flex items-center gap-1">
+        {% if feedback.items|length > 0 %}
+          <div class="flex items-center gap-1 mr-1">
+            {% for item in feedback.items.slice(0, 3) %}
+              {% if item.product.image_urls|length > 0 %}
+                <img class="size-6 rounded-md" src="{{ item.product.image_urls[0] }}" alt="{{ item.product.name }}">
+              {% elif item.product.type == 'balance' %}
+                <div class="flex items-center justify-center size-6 bg-white/5 text-accent-400 rounded-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M11.1 19h1.75v-1.25q1.25-.225 2.15-.975t.9-2.225q0-1.05-.6-1.925T12.9 11.1q-1.5-.5-2.075-.875T10.25 9.2t.463-1.025T12.05 7.8q.8 0 1.25.387t.65.963l1.6-.65q-.275-.875-1.012-1.525T12.9 6.25V5h-1.75v1.25q-1.25.275-1.95 1.1T8.5 9.2q0 1.175.688 1.9t2.162 1.25q1.575.575 2.188 1.025t.612 1.175q0 .825-.587 1.213t-1.413.387t-1.463-.512T9.75 14.1l-1.65.65q.35 1.2 1.088 1.938T11.1 17.7zm.9 3q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          
+          <p class="flex-1 truncate">
+            {{ feedback.items[0].name }}
+            {% if feedback.items.length > 1 %}
+              & {{ feedback.items.length - 1 }} more
+            {% endif %}
+          </p>
+        {% else %}
+          <div class="flex items-center gap-1 mr-1">
+            <div class="flex items-center justify-center size-6 bg-white/5 text-accent-400 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 256 256">
+                <path
+                  fill="currentColor"
+                  d="m222.72 67.91l-88-48.18a13.9 13.9 0 0 0-13.44 0l-88 48.18A14 14 0 0 0 26 80.18v95.64a14 14 0 0 0 7.28 12.27l88 48.18a13.92 13.92 0 0 0 13.44 0l88-48.18a14 14 0 0 0 7.28-12.27V80.18a14 14 0 0 0-7.28-12.27ZM127 30.25a2 2 0 0 1 1.92 0L212.51 76l-33.94 18.57l-84.52-46.26ZM122 223l-83-45.43a2 2 0 0 1-1-1.75V86.66l84 46ZM43.49 76l38.07-20.85l84.51 46.26L128 122.24ZM218 175.82a2 2 0 0 1-1 1.75L134 223v-90.36l36-19.71V152a6 6 0 0 0 12 0v-45.63l36-19.71Z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <p>Deleted Product</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

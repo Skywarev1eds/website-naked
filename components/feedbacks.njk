@@ -1,0 +1,69 @@
+{% set data = [] %}
+{% if feedbacks %}
+  {% set data = feedbacks %}
+{% elif latest_feedbacks %}
+  {% set data = latest_feedbacks %}
+{% endif %}
+
+<section id="{{ componentId }}" class="component" data-component-id="{{ componentId }}">
+  <div class="container mx-auto flex flex-col px-4 mb-16 lg:mb-32 relative">
+    <div class="mx-auto absolute -z-10 aspect-square rounded-full -translate-y-1/3 right-0 top-0 blur-3xl bg-accent-500/40 w-[14%]" aria-hidden="true"></div>
+    <div class="flex flex-col items-center justify-between gap-4 mb-4 md:flex-row">
+      {% if properties.title %}
+        <h2 class="text-4xl lg:text-5xl font-bold text-t-primary" data-dsr>
+          {{ properties.title | renderString }}
+        </h2>
+      {% else %}
+        <div></div>
+      {% endif %}
+      <div class="flex" data-dsr>
+        {% set roundedRating = shop.average_rating | round(0) %}
+        {% for i in range(0, roundedRating) %}
+          <span class="text-accent-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-10" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.275l-4.15 2.5q-.275.175-.575.15t-.525-.2t-.35-.437t-.05-.588l1.1-4.725L3.775 10.8q-.25-.225-.312-.513t.037-.562t.3-.45t.55-.225l4.85-.425l1.875-4.45q.125-.3.388-.45t.537-.15t.537.15t.388.45l1.875 4.45l4.85.425q.35.05.55.225t.3.45t.038.563t-.313.512l-3.675 3.175l1.1 4.725q.075.325-.05.588t-.35.437t-.525.2t-.575-.15z"/></svg>
+          </span>
+        {% endfor %}
+        {% for i in range(0, 5 - roundedRating) %}
+          <span class="text-t-primary/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-10" viewBox="0 0 24 24"><path fill="currentColor" d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm3.15.45l-4.15 2.5q-.275.175-.575.15t-.525-.2t-.35-.437t-.05-.588l1.1-4.725L3.775 10.8q-.25-.225-.312-.513t.037-.562t.3-.45t.55-.225l4.85-.425l1.875-4.45q.125-.3.388-.45t.537-.15t.537.15t.388.45l1.875 4.45l4.85.425q.35.05.55.225t.3.45t.038.563t-.313.512l-3.675 3.175l1.1 4.725q.075.325-.05.588t-.35.437t-.525.2t-.575-.15zm0-5.025"/></svg>
+          </span>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="flex flex-col items-center justify-between text-center mb-8 md:flex-row md:text-left">
+      {% if properties.subtitle %}
+        <p class="text-base text-t-primary/50" data-dsr>
+          {{ properties.subtitle | renderString }}
+        </p>
+      {% else %}
+        <div></div>
+      {% endif %}
+      <p class="text-t-primary/50 hidden md:block" data-dsr>
+        Average rating: {{ shop.average_rating }}
+      </p>
+    </div>
+
+    {% if data|length > 0 %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4">
+        {% for feedback in data.slice(0, properties.amount) %}
+          {% render_snippet "feedback-card.njk", feedback=feedback %}
+        {% endfor %}
+      </div>
+      {% if data|length >= properties.amount %}
+        <div class="flex justify-center mt-8" data-dsr>
+          <a href="{{ '/feedback' | shopUrl }}" class="text-accent-500 hover:underline">
+            View All Reviews
+          </a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="text-t-primary/50" data-dsr>
+        {% if templateName == 'product' %}
+          No reviews about this product yet.
+        {% else %}
+          No reviews yet.
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>

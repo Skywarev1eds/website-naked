@@ -1,0 +1,52 @@
+<section class="component" data-component-id="{{ componentId }}">
+  <div class="container mx-auto">
+    <div class="py-24 lg:py-32 relative">
+      <div class="m-auto absolute inset-0 -z-10 aspect-square rounded-full blur-[200px] bg-accent-500/50 max-w-4xl -translate-y-1/2 w-[65%]" aria-hidden="true"></div>
+      {% if properties.headline or properties.title or properties.subtitle %}
+        <div class="flex flex-col gap-4 mb-8 text-center relative">
+          {% if properties.headline %}
+            <div>
+              <span class="inline-block px-6 py-2 rounded-full border-2 border-white/5 bg-white/5 text-accent-100 text-sm font-semibold hover:translate-y-[-2px] transition-transform duration-300 ease-in-out" data-dsr>
+                {{ properties.headline | renderString }}
+              </span>
+            </div>
+          {% endif %}
+          {% if properties.title %}
+            <h1 class="text-4xl lg:text-5xl font-bold text-t-primary" data-dsr>
+              {{ properties.title | renderString }}
+            </h1>
+          {% endif %}
+          {% if properties.subtitle %}
+            <p class="text-base text-t-primary/50" data-dsr>
+              {{ properties.subtitle | renderString }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="px-4 mb-16 lg:mb-32" data-dsr>
+      {% if blog_posts|length > 0 %}
+        {% if properties.enlarge_newest_post %}
+          <div class="hidden xl:block">
+            {% render_snippet "blog-post-large-card.njk", blogPost=blog_posts[0] %}
+          </div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 items-start md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 mb-4 lg:mb-8">
+          {% for blogPost in blog_posts %}
+            <div class="{{ 'xl:hidden' if properties.enlarge_newest_post and loop.first }}">
+              {% render_snippet "blog-post-card.njk", blogPost=blogPost %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if blog_posts_paginator.last_page > 1 %}
+          {% render_snippet "pagination.njk", paginator=blog_posts_paginator %}
+        {% endif %}
+      {% else %}
+        <p class="text-t-primary/50 text-lg text-center" data-dsr>No Blog Posts Yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
