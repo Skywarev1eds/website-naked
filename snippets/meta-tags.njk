@@ -5,7 +5,12 @@
 {%- set title_divider = ' - ' -%}
 {%- set description_divider = ' ' -%}
 
-{%- if templateName == 'products' -%}
+{%- if templateName == 'shop' -%}
+  {%- set title = 'BasilCheats' -%}
+  {%- set description = 'Fine-tune your tactics to dominate your rivals.' -%}
+  {%- set image = 'https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/7b4c72ea-153b-498a-5143-54d3225d5700/public' -%}
+  {%- set twitterCard = 'summary' -%}
+{%- elif templateName == 'products' -%}
   {%- if category -%}
     {%- set title = category.meta_title ~ title_divider ~ shop.meta_title -%}
     {%- set description = category.meta_description ~ description_divider ~ shop.meta_description -%}
@@ -73,8 +78,8 @@
 <meta name="twitter:title" content="{{ title }}">
 <meta name="twitter:description" content="{{ description }}">
 <meta name="twitter:card" content="{{ twitterCard }}">
-<link rel="icon" type="image/png" href="{{ shop.favicon_url }}">
-<meta name="theme-color" content="{{ '' | themeColor }}" />
+<link rel="icon" type="image/png" href="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/7b4c72ea-153b-498a-5143-54d3225d5700/public">
+<meta name="theme-color" content="#00ff00" />
 
 {% if schemaOrg %}
 <script type="application/ld+json">
