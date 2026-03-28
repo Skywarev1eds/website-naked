@@ -1,245 +1,661 @@
 <nav class="component" data-component-id="navbar">
-  <div x-data="navbar">
-    <div class="bg-background/50 backdrop-blur-2xl shadow-md">
-      <div class="mx-auto max-w-screen-2xl p-4">
-        <div class="flex justify-between items-center relative z-30">
-          <a href="{{ '/' | shopUrl }}" class="flex justify-start items-center gap-4 grow basis-0">
-            {% if global.components.navbar.show_logo %}
-            <img
-              src="{{ shop.image_url }}"
-              alt="{{ shop.name }}"
-              class="max-h-10 rounded-lg"
-            />
-            {% endif %}
-            {% if global.components.navbar.show_shop_name %}
-            <h1 class="text-2xl font-bold text-t-primary">{{ shop.name }}</h1>
-            {% endif %}
-          </a>
-          <div class="hidden lg:flex justify-center items-center gap-2">
-            {% for link in global.components.navbar.left_links %}
-            {% set lActive = false %}
-            {% if (link.link == '/' and templateName == 'shop') or (link.link == '/cart' and templateName == 'cart') or (link.link == '/products' and templateName == 'products') or (link.link == '/terms-of-service' and templateName == 'terms') or (link.link == '/privacy-policy' and templateName == 'privacy-policy') or (link.link == '/refund-policy' and templateName == 'refund-policy') or (link.link == '/feedback' and templateName == 'feedback') or (link.link == '/status' and templateName == 'status') or (link.link == '/faq' and templateName == 'faq') or (link.link == '/blog' and templateName == 'blog') %}
-            {% set lActive = true %}
-            {% endif %}
 
-            {% if lActive and link.shape == 'regular' %}
-            {% set lClass = 'text-gray-100 border-transparent hover:text-t-primary' %}
-            {% elif not lActive and link.shape == 'regular' %}
-            {% set lClass = 'text-t-primary/70 opacity-50 border-transparent hover:opacity-100' %}
-            {% elif lActive and link.shape == 'button' %}
-            {% set lClass = 'bg-accent-500/50 border-accent-500 text-t-accent' %}
-            {% elif not lActive and link.shape == 'button' %}
-            {% set lClass = 'bg-accent-500 border-accent-500 text-t-accent hover:bg-accent-500/50 transition-colors duration-300 ease-in-out' %}
-            {% endif %}
+<style>
+    body > nav.navbar,
+    body > header > nav.navbar,
+    .navbar:not(.nav):not(.mob-menu) {
+        display: none !important;
+    }
 
-            <a
-              href="{{ link.link | shopUrl }}"
-              target="{{ '_blank' if link.new_tab }}"
-              class="px-6 py-2 rounded-full text-base font-medium border-2 {{ lClass }}"
-            >
-              {{ link.text }}
-            </a>
-            {% endfor %}
-          </div>
-          <div class="hidden lg:flex justify-end items-center gap-4 grow basis-0">
-            {% for link in global.components.navbar.right_links %}
-            {% set lClass = 'text-gray-700 hover:text-gray-900 text-sm font-medium' %}
-            {% if link.shape == 'button' %}
-            {% set lClass = 'inline-flex items-center gap-4 border-2 font-semibold bg-accent-500 border-accent-500 text-t-accent hover:bg-accent-500/50 hover:text-t-primary transition-colors duration-300 ease-in-out' %}
-            {% endif %}
-            <a
-              href="{{ link.link | shopUrl }}"
-              target="{{ '_blank' if link.new_tab }}"
-              class="px-6 py-2 rounded-full {{ lClass }}"
-            >
-              {{ link.text }}
-            </a>
-            {% endfor %}
+    :root {
+        --accent: #00ff00;
+        --accent-dim: rgba(0,255,0,.08);
+        --border: rgba(255,255,255,.07);
+        --muted: rgba(255,255,255,.55);
+        --surface: rgba(255,255,255,.04);
+        --radius: 10px;
+    }
 
-            {% if not global.components.navbar.hide_currency_selector %}
-              {% if currency_rates_usd | length > 1 %}
-                <div class="currency-selector lg">
-                  <select class="font-semibold rounded-full border-2 bg-white/5 border-white/5 text-transparent" style="width: 80px; height: 44px;">
-                    {% for code, rate in currency_rates_usd %}
-                      <option value="{{ code }}">
-                        <span class="flex items-center justify-between">
-                          <span>
-                            <span class="inline-block w-10 bg-white/5 rounded text-t-primary text-center px-1 py-px mr-1 symbol">{{ currency_symbols[code] }}</span>
-                            <span class="text-t-primary code">{{ code.toUpperCase() }}</span>
-                          </span>
-                          {% if code.toUpperCase() == currency %}
-                            <span class="text-t-primary/75 text-xs default">Default</span>
-                          {% endif %}
-                        </span>
-                      </option>
-                    {% endfor %}
-                  </select>
-                </div>
-              {% endif %}
-            {% endif %}
+    .nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        padding: 0 2rem;
+        gap: 2rem;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 0;
+        transition:
+            top .35s cubic-bezier(.4,0,.2,1),
+            left .35s cubic-bezier(.4,0,.2,1),
+            right .35s cubic-bezier(.4,0,.2,1),
+            height .35s cubic-bezier(.4,0,.2,1),
+            padding .35s cubic-bezier(.4,0,.2,1),
+            background .35s ease,
+            border-color .35s ease,
+            border-radius .35s ease,
+            box-shadow .35s ease;
+    }
 
-            {% if not global.components.navbar.hide_customer_dashboard %}
-              {% if shop_customer %}
-                <a
-                  href="{{ '/customer/dashboard' | shopUrl }}"
-                  class="px-6 py-2 rounded-full inline-flex items-center justify-center p-2.5 relative font-semibold border-2 bg-white/5 border-white/5 text-t-primary hover:bg-white/10 hover:text-t-primary transition-colors duration-300 ease-in-out"
-                >
-                  My Account
+    .nav.scrolled {
+        top: 14px !important;
+        left: 220px !important;
+        right: 220px !important;
+        height: 68px !important;
+        padding: 0 1.5rem !important;
+        background: rgba(10,10,10,0.45) !important;
+        backdrop-filter: blur(24px) saturate(160%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+        border-radius: 18px !important;
+        border: 1px solid rgba(255,255,255,0.07) !important;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+    }
+
+    @media (max-width: 1400px) { .nav.scrolled { left: 160px !important; right: 160px !important; } }
+    @media (max-width: 1200px) { .nav.scrolled { left: 60px !important;  right: 60px !important;  } }
+    @media (max-width: 1080px) { .nav.scrolled { left: 24px !important;  right: 24px !important;  } }
+    @media (max-width: 979px)  { .nav.scrolled { left: 16px !important;  right: 16px !important;  } }
+
+    .nav__logo { height: 36px; width: auto; }
+
+    .nav__links {
+        display: flex;
+        align-items: center;
+        gap: .125rem;
+        list-style: none;
+        margin: 0; padding: 0;
+        flex: 1;
+    }
+
+    .nav__links a {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .5rem .875rem;
+        border-radius: var(--radius);
+        font-size: .9rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color .15s, background .15s;
+    }
+
+    .nav__links a:hover  { color: #fff; background: rgba(255,255,255,.06); }
+    .nav__links a.active { color: var(--accent); background: var(--accent-dim); }
+    .nav__links svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .nav__actions { display: flex; align-items: center; gap: .625rem; }
+
+    .nav__search {
+        display: flex;
+        align-items: center;
+        gap: .625rem;
+        padding: 0 .875rem;
+        height: 40px;
+        width: 280px;
+        border-radius: var(--radius);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: border-color .2s, background .2s;
+    }
+
+    .nav__search:hover { border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.06); }
+    .nav__search svg { width: 15px; height: 15px; color: #64748b; flex-shrink: 0; }
+    .nav__search span { font-size: .875rem; color: #475569; pointer-events: none; }
+
+    .nav__btn {
+        width: 40px; height: 40px;
+        border-radius: var(--radius);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background .2s, border-color .2s;
+    }
+
+    .nav__btn:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.14); }
+    .nav__btn svg { width: 17px; height: 17px; }
+
+    .nav__divider { width: 1px; height: 24px; background: var(--border); }
+
+    .nav__account {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        padding: 0 1rem;
+        height: 40px;
+        border-radius: var(--radius);
+        background: var(--accent);
+        border: none;
+        color: #000;
+        font-weight: 700;
+        font-size: .875rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: opacity .15s, box-shadow .15s;
+    }
+
+    .nav__account:hover { opacity: .88; box-shadow: 0 4px 20px rgba(0,255,0,.3); }
+    .nav__account svg { width: 16px; height: 16px; }
+
+    .nav__hamburger {
+        display: none;
+        width: 40px; height: 40px;
+        border-radius: var(--radius);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        margin-left: auto;
+        flex-shrink: 0;
+        transition: background .2s, border-color .2s;
+    }
+
+    .nav__hamburger:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.14); }
+
+    .nav__hamburger span {
+        display: block;
+        width: 18px; height: 1.5px;
+        background: #fff;
+        border-radius: 2px;
+        transition: transform .25s, opacity .25s, width .25s;
+        transform-origin: center;
+    }
+
+    .nav__hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav__hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav__hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mob-menu {
+        position: fixed;
+        top: 64px; left: 0; right: 0; bottom: 0;
+        background: rgba(8,8,8,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 998;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 1.25rem 2rem;
+        gap: .3rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-6px);
+        transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+    }
+
+    .mob-menu.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition: opacity .22s ease, transform .22s ease, visibility 0s linear 0s;
+    }
+
+    .mob-menu__link {
+        display: flex;
+        align-items: center;
+        gap: .875rem;
+        padding: .825rem 1rem;
+        border-radius: 12px;
+        font-size: .9375rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: color .15s, background .15s, border-color .15s;
+    }
+
+    .mob-menu__link svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .mob-menu__link:hover  { color: #fff; background: rgba(255,255,255,.05); border-color: var(--border); }
+    .mob-menu__link.active { color: var(--accent); background: var(--accent-dim); border-color: rgba(0,255,0,.15); }
+
+    .mob-menu__divider { height: 1px; background: var(--border); margin: .5rem 0; }
+
+    .mob-menu__bottom {
+        display: flex;
+        flex-direction: column;
+        gap: .625rem;
+        margin-top: auto;
+        padding-top: 1rem;
+    }
+
+    .mob-menu__search {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        padding: .875rem 1rem;
+        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: .9375rem;
+        cursor: pointer;
+        transition: border-color .2s, background .2s;
+    }
+
+    .mob-menu__search svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .mob-menu__search:hover { border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.06); }
+
+    .mob-menu__account {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .625rem;
+        padding: .9375rem 1rem;
+        border-radius: 12px;
+        background: var(--accent);
+        border: none;
+        color: #000;
+        font-weight: 700;
+        font-size: .9375rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: opacity .15s, box-shadow .15s;
+    }
+
+    .mob-menu__account:hover { opacity: .88; box-shadow: 0 4px 24px rgba(0,255,0,.3); }
+    .mob-menu__account svg { width: 18px; height: 18px; }
+
+    .search-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 9999;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 6vh;
+        opacity: 0;
+        transition: opacity .25s;
+    }
+
+    .search-modal.open { display: flex; opacity: 1; }
+
+    .search-modal__box {
+        width: min(680px, 92vw);
+        background: #141414;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        max-height: 78vh;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-12px);
+        transition: transform .25s;
+    }
+
+    .search-modal.open .search-modal__box { transform: translateY(0); }
+
+    .search-modal__head {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        padding: 1.125rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .search-modal__head svg { width: 18px; height: 18px; color: #64748b; flex-shrink: 0; }
+
+    .search-modal__input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: .9375rem;
+    }
+
+    .search-modal__input::placeholder { color: #475569; }
+
+    .search-modal__close {
+        background: none;
+        border: none;
+        color: var(--muted);
+        cursor: pointer;
+        padding: .375rem;
+        border-radius: 6px;
+        display: flex;
+        transition: color .15s;
+    }
+
+    .search-modal__close:hover { color: #fff; }
+    .search-modal__close svg { width: 18px; height: 18px; }
+
+    .search-modal__body { overflow-y: auto; padding: .875rem 1.25rem 1.25rem; }
+
+    .search-results { display: flex; flex-direction: column; gap: .375rem; }
+
+    .result-item {
+        display: flex;
+        align-items: center;
+        gap: .875rem;
+        padding: .75rem;
+        border-radius: var(--radius);
+        border: 1px solid transparent;
+        background: var(--surface);
+        text-decoration: none;
+        transition: all .18s;
+    }
+
+    .result-item:hover { background: rgba(255,255,255,.06); border-color: rgba(0,255,0,.2); transform: translateX(3px); }
+
+    .result-item__img, .result-item__thumb {
+        width: 48px; height: 48px;
+        border-radius: 8px;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .result-item__thumb {
+        background: var(--accent-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+    }
+
+    .result-item__thumb svg { width: 22px; height: 22px; }
+    .result-item__name  { color: #fff; font-weight: 600; font-size: .875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .result-item__price { color: var(--muted); font-size: .8125rem; margin-top: 2px; }
+    .result-item__stock { color: var(--accent); font-size: .8rem; margin-left: auto; white-space: nowrap; }
+
+    .no-results { text-align: center; padding: 2.5rem 1rem; color: var(--muted); display: none; }
+    .no-results svg { width: 40px; height: 40px; opacity: .4; margin-bottom: .75rem; display: block; margin-inline: auto; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1300px) {
+        .nav { gap: 1.25rem; padding: 0 1.5rem; }
+        .nav__search { width: 220px; }
+        .nav__links a { padding: .5rem .625rem; }
+    }
+
+    @media (max-width: 1180px) {
+        .nav { gap: 1rem; padding: 0 1.25rem; }
+        .nav__search { width: 180px; }
+        .nav__links a { padding: .5rem .5rem; font-size: .825rem; gap: .35rem; }
+        .nav__links svg { width: 14px; height: 14px; }
+        .nav__actions { gap: .5rem; }
+    }
+
+    @media (max-width: 1080px) {
+        .nav__search { width: 40px; padding: 0; justify-content: center; }
+        .nav__search span { display: none; }
+        .nav__search svg { color: var(--muted); }
+        .nav__links a { padding: .5rem .4rem; font-size: .8rem; }
+    }
+
+    @media (max-width: 979px) {
+        .nav__links,
+        .nav__search,
+        .nav__divider,
+        .nav__account,
+        .nav__btn { display: none; }
+        .nav__hamburger { display: flex; }
+    }
+</style>
+
+<nav class="nav" id="navbar">
+    <a href="{{ '/' | shopUrl }}"><img src="{{ shop.image_url }}" class="nav__logo" alt="{{ shop.name }}"></a>
+
+    <ul class="nav__links">
+        {% for link in global.components.navbar.left_links %}
+        <li><a href="{{ link.link | shopUrl }}" target="{{ '_blank' if link.new_tab }}" data-path="{{ link.link }}">
+            {{ link.text }}
+        </a></li>
+        {% endfor %}
+        {% for link in global.components.navbar.right_links %}
+        <li><a href="{{ link.link | shopUrl }}" target="{{ '_blank' if link.new_tab }}" data-path="{{ link.link }}">
+            {{ link.text }}
+        </a></li>
+        {% endfor %}
+    </ul>
+
+    <div class="nav__actions">
+        <div class="nav__search" id="searchTrigger">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Search products...</span>
+        </div>
+        {% if not global.components.navbar.hide_cart %}
+        <a href="{{ '/cart' | shopUrl }}" class="nav__btn" aria-label="Cart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        </a>
+        {% endif %}
+        <div class="nav__divider"></div>
+        {% if not global.components.navbar.hide_customer_dashboard %}
+            {% if shop_customer %}
+                <a href="{{ '/customer/dashboard' | shopUrl }}" class="nav__account">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    My Account
                 </a>
-              {% else %}
-                <button
-                  type="button"
-                  @click="appCustomer.loginOrRedirect()"
-                  class="px-6 py-2 rounded-full inline-flex items-center justify-center p-2.5 relative font-semibold border-2 bg-white/5 border-white/5 text-t-primary hover:bg-white/10 hover:text-t-primary transition-colors duration-300 ease-in-out"
-                >
-                  Login
+            {% else %}
+                <button class="nav__account" type="button" @click="appCustomer.loginOrRedirect()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Login
                 </button>
-              {% endif %}
             {% endif %}
-
-            {% if not global.components.navbar.hide_cart %}
-              <a href="{{ '/cart' | shopUrl }}" class="inline-flex items-center justify-center p-2.5 relative font-semibold rounded-full border-2 bg-white/5 border-white/5 text-t-primary hover:bg-white/10 hover:text-t-primary transition-colors duration-300 ease-in-out">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><path fill="currentColor" d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h11q.425 0 .713.288T19 16t-.288.713T18 17H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H2q-.425 0-.712-.288T1 3t.288-.712T2 2h1.625q.275 0 .525.15t.375.425zm3.35 7h7z"/></svg>
-                <template x-if="appCart.countWithQuantities > 0">
-                  <span class="absolute -top-2 -right-2 inline-flex items-center justify-center size-5 bg-accent-500 text-white text-[0.625rem] rounded-full" x-text="appCart.countWithQuantities">
-                </template>
-              </a>
-            {% endif %}
-          </div>
-          <div class="lg:hidden">
-            <div class="relative flex items-center gap-3 max-h-10 lg:hidden">
-              {% if not global.components.navbar.hide_currency_selector %}
-                {% if currency_rates_usd | length > 1 %}
-                  <div class="currency-selector xs">
-                    <select class="font-semibold bg-transparent text-transparent">
-                      {% for code, rate in currency_rates_usd %}
-                        <option value="{{ code }}">
-                          <span class="flex items-center justify-between">
-                            <span>
-                              <span class="inline-block w-10 bg-white/5 rounded text-t-primary text-center px-1 py-px mr-1 symbol">{{ currency_symbols[code] }}</span>
-                              <span class="text-t-primary code">{{ code.toUpperCase() }}</span>
-                            </span>
-                            {% if code.toUpperCase() == currency %}
-                              <span class="text-t-primary/75 text-xs default">Default</span>
-                            {% endif %}
-                          </span>
-                        </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                {% endif %}
-              {% endif %}
-              {% if not global.components.navbar.hide_cart %}
-                <a href="{{ '/cart' | shopUrl }}" class="inline-flex items-center justify-center relative text-t-primary hover:text-accent-500 transition-colors duration-300 ease-in-out">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24"><path fill="currentColor" d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h11q.425 0 .713.288T19 16t-.288.713T18 17H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H2q-.425 0-.712-.288T1 3t.288-.712T2 2h1.625q.275 0 .525.15t.375.425zm3.35 7h7z"/></svg>
-                  <template x-if="appCart.countWithQuantities > 0">
-                    <span class="absolute -top-3 -right-3 inline-flex items-center justify-center size-[1.125rem] bg-accent-500 text-white text-[0.625rem] rounded-full">
-                      <span x-text="appCart.countWithQuantities > 9 ? '9+' : appCart.countWithQuantities"></span>
-                    </span>
-                  </template>
-                </a>
-              {% endif %}
-              <button @click="toggleMobileMenu" x-ref="mobileMenuBtn" class="p-6">
-                <div class="m-auto h-0.5 w-5 rounded bg-gray-300 transition duration-300" x-bind:class="{ 'translate-y-1.5 rotate-45': showMobileMenu }"></div>
-                <div class="m-auto mt-2 h-0.5 w-5 rounded bg-gray-300 transition duration-300" x-bind:class="{ '-translate-y-1 -rotate-45': showMobileMenu }"></div>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          x-cloak
-          class="fixed inset-0 z-20 h-screen w-screen origin-bottom scale-y-0 bg-background/95 backdrop-blur-2xl transition duration-500 lg:hidden"
-          :class="{ 'origin-top scale-y-100': showMobileMenu }">
-        </div>
-        <div
-          x-cloak
-          x-ref="mobileMenu"
-          class="absolute top-full left-0 right-0 mx-auto z-20 w-[calc(100%-2rem)] origin-top translate-y-1 rounded-xl border-2 border-white/5 bg-white/5 p-6 transition-all duration-300 lg:hidden"
-          :class="`${showMobileMenu ? 'visible scale-100 opacity-100' : 'invisible scale-95 opacity-0'}`">
-          <div class="w-full text-gray-300">
-            <ul class="flex flex-col gap-6 font-medium tracking-wide">
-              {% for link in global.components.navbar.left_links %}
-              {% set lActive = false %}
-              {% if (link.link == '/' and templateName == 'shop') or (link.link == '/cart' and templateName == 'cart') or (link.link == '/products' and templateName == 'products') or (link.link == '/terms-of-service' and templateName == 'terms') or (link.link == '/privacy-policy' and templateName == 'privacy-policy') or (link.link == '/refund-policy' and templateName == 'refund-policy') or (link.link == '/feedback' and templateName == 'feedback') or (link.link == '/status' and templateName == 'status') or (link.link == '/faq' and templateName == 'faq') or (link.link == '/blog' and templateName == 'blog') %}
-              {% set lActive = true %}
-              {% endif %}
-              <li>
-                <a
-                  href="{{ link.link | shopUrl }}"
-                  target="{{ '_blank' if link.new_tab }}"
-                  class="block transition {{ 'text-accent-500' if lActive else 'text-gray-300' }} hover:text-t-primary"
-                >
-                  {{ link.text }}
-                </a>
-              </li>
-              {% endfor %}
-              {% for link in global.components.navbar.right_links %}
-              {% set lActive = false %}
-              {% if (link.link == '/' and templateName == 'shop') or (link.link == '/cart' and templateName == 'cart') or (link.link == '/products' and templateName == 'products') or (link.link == '/terms-of-service' and templateName == 'terms') or (link.link == '/privacy-policy' and templateName == 'privacy-policy') or (link.link == '/refund-policy' and templateName == 'refund-policy') or (link.link == '/feedback' and templateName == 'feedback') or (link.link == '/status' and templateName == 'status') or (link.link == '/faq' and templateName == 'faq') or (link.link == '/blog' and templateName == 'blog') %}
-              {% set lActive = true %}
-              {% endif %}
-              <li>
-                <a
-                  href="{{ link.link | shopUrl }}"
-                  target="{{ '_blank' if link.new_tab }}"
-                  class="block transition {{ 'text-accent-500' if lActive else 'text-gray-300' }} hover:text-t-primary"
-                >
-                  {{ link.text }}
-                </a>
-              </li>
-              {% endfor %}
-              {% if not global.components.navbar.hide_customer_dashboard %}
-                {% if shop_customer %}
-                  <li>
-                    <a
-                      href="{{ '/customer/dashboard' | shopUrl }}"
-                      class="block transition text-gray-300 hover:text-t-primary"
-                    >
-                      My Account
-                    </a>
-                  </li>
-                {% else %}
-                  <li>
-                    <button
-                      type="button"
-                      @click="appCustomer.loginOrRedirect()"
-                      class="block w-full text-left transition text-gray-300 hover:text-t-primary"
-                    >
-                      Login
-                    </button>
-                  </li>
-                {% endif %}
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-      </div>
+        {% endif %}
     </div>
-  </div>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+
+<div class="mob-menu" id="mobMenu" aria-hidden="true">
+    {% for link in global.components.navbar.left_links %}
+    <a href="{{ link.link | shopUrl }}" class="mob-menu__link" target="{{ '_blank' if link.new_tab }}" data-path="{{ link.link }}">
+        {{ link.text }}
+    </a>
+    {% endfor %}
+    {% for link in global.components.navbar.right_links %}
+    <a href="{{ link.link | shopUrl }}" class="mob-menu__link" target="{{ '_blank' if link.new_tab }}" data-path="{{ link.link }}">
+        {{ link.text }}
+    </a>
+    {% endfor %}
+
+    <div class="mob-menu__divider"></div>
+
+    <div class="mob-menu__bottom">
+        <div class="mob-menu__search" id="mobSearchTrigger">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Search products...
+        </div>
+        {% if not global.components.navbar.hide_customer_dashboard %}
+            {% if shop_customer %}
+                <a href="{{ '/customer/dashboard' | shopUrl }}" class="mob-menu__account">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    My Account
+                </a>
+            {% else %}
+                <button class="mob-menu__account" type="button" @click="appCustomer.loginOrRedirect()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Login
+                </button>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="search-modal" id="searchModal">
+    <div class="search-modal__box">
+        <div class="search-modal__head">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input class="search-modal__input" id="searchInput" placeholder="Search for products..." autocomplete="off">
+            <button class="search-modal__close" id="closeSearch">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="search-modal__body">
+            <div class="search-results" id="searchResults">
+                {% for product in products %}
+                <a href="{{ '/product/' ~ product.slug | shopUrl }}" class="result-item" data-name="{{ product.title | lower }}">
+                    {% if product.image_url %}
+                        <img src="{{ product.image_url }}" class="result-item__img" alt="{{ product.title }}">
+                    {% else %}
+                        <div class="result-item__thumb">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                        </div>
+                    {% endif %}
+                    <div style="flex:1;min-width:0">
+                        <div class="result-item__name">{{ product.title }}</div>
+                        <div class="result-item__price">{{ product.price_range }}</div>
+                    </div>
+                    <div class="result-item__stock">
+                        {% if product.in_stock %}In Stock{% else %}Out of Stock{% endif %}
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="no-results" id="noResults">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <p>No products found</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('navbar', () => ({
-      showMobileMenu: false,
-      toggleMobileMenu() {
-        this.showMobileMenu = !this.showMobileMenu;
+(function () {
+    var navbar = document.getElementById('navbar');
+    var rafPending = false;
+    var isScrolled = false;
 
-        if (this.showMobileMenu) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.removeProperty('overflow');
+    function getScrollTop() {
+        if (window.scrollY > 0) return window.scrollY;
+        if (window.pageYOffset > 0) return window.pageYOffset;
+        if (document.documentElement.scrollTop > 0) return document.documentElement.scrollTop;
+        if (document.body.scrollTop > 0) return document.body.scrollTop;
+        return 0;
+    }
+
+    function applyScroll() {
+        rafPending = false;
+        var shouldScroll = getScrollTop() > 40;
+        if (shouldScroll === isScrolled) return;
+        isScrolled = shouldScroll;
+        navbar.classList.toggle('scrolled', isScrolled);
+    }
+
+    function onScroll() {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(applyScroll);
+    }
+
+    var scrollOpts = { passive: true };
+    window.addEventListener('scroll', onScroll, scrollOpts);
+    document.addEventListener('scroll', onScroll, scrollOpts);
+    setInterval(onScroll, 150);
+    applyScroll();
+
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    var matched = false;
+
+    document.querySelectorAll('[data-path]').forEach(function(a) {
+        var dp = a.dataset.path;
+        if (dp === '__external') return;
+        var active = false;
+        if (dp === '/#products') {
+            active = path === '/' && hash === '#products';
+        } else if (dp !== '/') {
+            active = path.startsWith(dp);
         }
-      },
-      init() {
-        // Close mobile menu when clicking outside or on a link.
-        document.addEventListener('click', (event) => {
-          if (!this.$refs.mobileMenuBtn) return;
-          if (!this.showMobileMenu) return;
-          if (this.$refs.mobileMenuBtn.contains(event.target)) return;
+        if (active) { a.classList.add('active'); matched = true; }
+    });
 
-          this.toggleMobileMenu();
+    if (!matched) {
+        document.querySelectorAll('[data-path="/"]').forEach(function(a) { a.classList.add('active'); });
+    }
+
+    var hamburger = document.getElementById('hamburger');
+    var mobMenu   = document.getElementById('mobMenu');
+
+    function openMenu() {
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobMenu.classList.add('open');
+        mobMenu.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeMenu() {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobMenu.classList.remove('open');
+        mobMenu.setAttribute('aria-hidden', 'true');
+    }
+
+    hamburger.addEventListener('click', function() {
+        if (mobMenu.classList.contains('open')) { closeMenu(); } else { openMenu(); }
+    });
+    mobMenu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMenu); });
+
+    var modal     = document.getElementById('searchModal');
+    var input     = document.getElementById('searchInput');
+    var resultsEl = document.getElementById('searchResults');
+    var noRes     = document.getElementById('noResults');
+    var allItems  = Array.from(resultsEl.querySelectorAll('.result-item'));
+
+    function openSearch() {
+        closeMenu();
+        modal.classList.add('open');
+        setTimeout(function() { input.focus(); }, 80);
+    }
+
+    function closeSearch() {
+        modal.classList.remove('open');
+        input.value = '';
+        filter('');
+    }
+
+    document.getElementById('searchTrigger').addEventListener('click', openSearch);
+    document.getElementById('mobSearchTrigger').addEventListener('click', openSearch);
+    document.getElementById('closeSearch').addEventListener('click', closeSearch);
+    modal.addEventListener('click', function(e) { if (e.target === modal) closeSearch(); });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (modal.classList.contains('open')) { closeSearch(); }
+            else if (mobMenu.classList.contains('open')) { closeMenu(); }
+        }
+    });
+
+    var filterTimer = null;
+    input.addEventListener('input', function(e) {
+        clearTimeout(filterTimer);
+        var val = e.target.value;
+        filterTimer = setTimeout(function() { filter(val); }, 120);
+    });
+
+    function filter(q) {
+        var term = q.toLowerCase().trim();
+        var count = 0;
+        allItems.forEach(function(el) {
+            var match = !term || el.dataset.name.includes(term);
+            el.classList.toggle('hidden', !match);
+            if (match) count++;
         });
-      },
-    }));
-  });
+        var empty = !count && !!term;
+        noRes.style.display     = empty ? 'block' : 'none';
+        resultsEl.style.display = empty ? 'none'  : '';
+    }
+})();
 </script>
+
+</nav>
