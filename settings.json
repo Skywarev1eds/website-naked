@@ -6,13 +6,13 @@
                 "hero": {
                     "type": "hero",
                     "properties": {
-                        "headline": "New stock arrived 🛺",
-                        "title": "BasilCheats is the <span class=\"text-accent-500\">number 1</span> destination for all your needs!",
-                        "subtitle": "Fine-tune your tactics to dominate your rivals.",
+                        "headline": "Trusted by over 740+ Satisfied Customers",
+                        "title": "Dominate your games with <span style=\"background:linear-gradient(135deg,#fff 30%,#9900ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;\">Bxxgie's Closet</span>",
+                        "subtitle": "Premium game enhancements, cheats, and tools — trusted by over 740+ satisfied customers worldwide.",
                         "show_searchbar": true,
                         "buttons": [
                             {
-                                "text": "Shop Now",
+                                "text": "Products",
                                 "icon": null,
                                 "link": "/products",
                                 "new_tab": false,
@@ -20,9 +20,9 @@
                                 "style": "regular"
                             },
                             {
-                                "text": "About Us",
+                                "text": "Sign In",
                                 "icon": null,
-                                "link": "#about-us",
+                                "link": "#",
                                 "new_tab": false,
                                 "color": "secondary",
                                 "style": "outline"
@@ -69,11 +69,11 @@
                 "products": {
                     "type": "products",
                     "properties": {
-                        "headline": "Promo 30% off! 💰",
-                        "title": "Shop here!",
-                        "subtitle": "Explore our exclusive products and offers, ranging from something to everything!",
+                        "headline": "Featured Products",
+                        "title": "Our Best Sellers",
+                        "subtitle": "Hand-picked top-tier tools trusted by thousands of players.",
                         "centered": true,
-                        "show_searchbar": true
+                        "show_searchbar": false
                     }
                 },
                 "stats": {
@@ -396,7 +396,7 @@
     },
     "global": {
         "properties": {
-            "accent_color": "#00ff00",
+            "accent_color": "#9900ff",
             "background_color": "#121212",
             "text_primary_color": "#ffffff",
             "text_accent_color": "#ffffff",

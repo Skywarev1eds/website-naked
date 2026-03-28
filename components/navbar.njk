@@ -8,8 +8,8 @@
     }
 
     :root {
-        --accent: #00ff00;
-        --accent-dim: rgba(0,255,0,.08);
+        --accent: #9900ff;
+        --accent-dim: rgba(128,0,255,.08);
         --border: rgba(255,255,255,.07);
         --muted: rgba(255,255,255,.55);
         --surface: rgba(255,255,255,.04);
@@ -135,7 +135,7 @@
         border-radius: var(--radius);
         background: var(--accent);
         border: none;
-        color: #000;
+        color: #fff;
         font-weight: 700;
         font-size: .875rem;
         text-decoration: none;
@@ -143,7 +143,7 @@
         transition: opacity .15s, box-shadow .15s;
     }
 
-    .nav__account:hover { opacity: .88; box-shadow: 0 4px 20px rgba(0,255,0,.3); }
+    .nav__account:hover { opacity: .88; box-shadow: 0 4px 20px rgba(153,0,255,.3); }
     .nav__account svg { width: 16px; height: 16px; }
 
     .nav__hamburger {
@@ -221,7 +221,7 @@
 
     .mob-menu__link svg { width: 20px; height: 20px; flex-shrink: 0; }
     .mob-menu__link:hover  { color: #fff; background: rgba(255,255,255,.05); border-color: var(--border); }
-    .mob-menu__link.active { color: var(--accent); background: var(--accent-dim); border-color: rgba(0,255,0,.15); }
+    .mob-menu__link.active { color: var(--accent); background: var(--accent-dim); border-color: rgba(153,0,255,.15); }
 
     .mob-menu__divider { height: 1px; background: var(--border); margin: .5rem 0; }
 
@@ -259,7 +259,7 @@
         border-radius: 12px;
         background: var(--accent);
         border: none;
-        color: #000;
+        color: #fff;
         font-weight: 700;
         font-size: .9375rem;
         text-decoration: none;
@@ -267,7 +267,7 @@
         transition: opacity .15s, box-shadow .15s;
     }
 
-    .mob-menu__account:hover { opacity: .88; box-shadow: 0 4px 24px rgba(0,255,0,.3); }
+    .mob-menu__account:hover { opacity: .88; box-shadow: 0 4px 24px rgba(153,0,255,.3); }
     .mob-menu__account svg { width: 18px; height: 18px; }
 
     .search-modal {
@@ -352,7 +352,7 @@
         transition: all .18s;
     }
 
-    .result-item:hover { background: rgba(255,255,255,.06); border-color: rgba(0,255,0,.2); transform: translateX(3px); }
+    .result-item:hover { background: rgba(255,255,255,.06); border-color: rgba(153,0,255,.2); transform: translateX(3px); }
 
     .result-item__img, .result-item__thumb {
         width: 48px; height: 48px;

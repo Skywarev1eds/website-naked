@@ -6,23 +6,23 @@
                 "hero": {
                     "type": "hero",
                     "properties": {
-                        "headline": "New stock arrived \ud83d\ude9a",
-                        "title": "{{ shop.name }} is the <span class=\"text-accent-500\">number 1<\/span> destination for all your needs!",
-                        "subtitle": null,
+                        "headline": "Trusted by over 740+ Satisfied Customers",
+                        "title": "Dominate your games with Bxxgie's Closet",
+                        "subtitle": "Premium game enhancements, cheats, and tools — trusted by over 740+ satisfied customers worldwide.",
                         "show_searchbar": true,
                         "buttons": [
                             {
-                                "text": "Shop Now",
+                                "text": "Products",
                                 "icon": null,
-                                "link": "\/products",
+                                "link": "/products",
                                 "new_tab": false,
                                 "color": "primary",
                                 "style": "regular"
                             },
                             {
-                                "text": "About Us",
+                                "text": "Sign In",
                                 "icon": null,
-                                "link": "#about-us",
+                                "link": "#",
                                 "new_tab": false,
                                 "color": "secondary",
                                 "style": "outline"
@@ -54,8 +54,8 @@
                                 "icon": "fas fa-star"
                             },
                             {
-                                "title": "24\/7 Support",
-                                "description": "Our support team is available 24\/7 to help you with any questions or issues you might have.",
+                                "title": "24/7 Support",
+                                "description": "Our support team is available 24/7 to help you with any questions or issues you might have.",
                                 "icon": "fas fa-star"
                             },
                             {
@@ -69,17 +69,17 @@
                 "products": {
                     "type": "products",
                     "properties": {
-                        "headline": "Promo 30% off! \ud83d\udcb0",
-                        "title": "Shop here!",
-                        "subtitle": "Explore our exclusive products and offers, ranging from something to everything!",
+                        "headline": "Featured Products",
+                        "title": "Our Best Sellers",
+                        "subtitle": "Hand-picked top-tier tools trusted by thousands of players.",
                         "centered": true,
-                        "show_searchbar": true
+                        "show_searchbar": false
                     }
                 },
                 "stats": {
                     "type": "stats",
                     "properties": {
-                        "headline": "Customers Love Us \u2764\ufe0f",
+                        "headline": "Customers Love Us ❤️",
                         "title": "Our Stats",
                         "subtitle": "Here are some of our key stats that show our success!",
                         "stats": [
@@ -110,7 +110,7 @@
                 "socials": {
                     "type": "socials",
                     "properties": {
-                        "headline": "Follow Us \ud83d\udc47",
+                        "headline": "Follow Us 👇",
                         "title": "Our Socials",
                         "subtitle": "Stay up to date with our latest news and offers by following us on social media!",
                         "socials": [
@@ -140,7 +140,7 @@
                 "faq": {
                     "type": "faq",
                     "properties": {
-                        "headline": "Important Info \ud83d\udcdd",
+                        "headline": "Important Info 📝",
                         "title": "FAQ",
                         "subtitle": "Here are some of the most frequently asked questions about our products.",
                         "items_per_row": 1,
@@ -155,7 +155,7 @@
                 "blog-posts": {
                     "type": "blog-posts",
                     "properties": {
-                        "headline": "Stay Updated \ud83d\udce3",
+                        "headline": "Stay Updated 📣",
                         "title": "Latest Blog Posts",
                         "subtitle": "Check out our latest blog posts and stay updated with the latest news and trends.",
                         "amount": 4
@@ -179,8 +179,8 @@
                 "cart-page": {
                     "type": "cart-page",
                     "properties": {
-                        "headline": "Your Cart \ud83d\uded2",
-                        "title": "Shopping <span class=\"text-accent-500\">Cart<\/span>",
+                        "headline": "Your Cart 🛒",
+                        "title": "Shopping <span class=\"text-accent-500\">Cart</span>",
                         "subtitle": "Review your selected items before proceeding to checkout."
                     }
                 }
@@ -195,9 +195,9 @@
                 "products-page": {
                     "type": "products-page",
                     "properties": {
-                        "headline": "Browse Our Collection \ud83d\udd0e",
-                        "default_title": "Our <span class=\"text-accent-500\">Products<\/span>",
-                        "category_title": "{{ category.name }} <span class=\"text-accent-500\">Products<\/span>",
+                        "headline": "Browse Our Collection 🔎",
+                        "default_title": "Our <span class=\"text-accent-500\">Products</span>",
+                        "category_title": "{{ category.name }} <span class=\"text-accent-500\">Products</span>",
                         "default_subtitle": "Discover our wide range of products.",
                         "category_subtitle": "{{ category.description }}"
                     }
@@ -231,8 +231,8 @@
                 "feedback-page": {
                     "type": "feedback-page",
                     "properties": {
-                        "headline": "Rated with {{ shop.average_rating }} \u2b50",
-                        "title": "Customer <span class=\"text-accent-500\">Reviews<\/span>",
+                        "headline": "Rated with {{ shop.average_rating }} ⭐",
+                        "title": "Customer <span class=\"text-accent-500\">Reviews</span>",
                         "subtitle": "Read what our customers have to say about us!",
                         "hide_sorting": false
                     }
@@ -248,8 +248,8 @@
                 "status-page": {
                     "type": "status-page",
                     "properties": {
-                        "headline": "Real-Time Updates \ud83d\udd52",
-                        "title": "Product <span class=\"text-accent-500\">Status<\/span>",
+                        "headline": "Real-Time Updates 🕒",
+                        "title": "Product <span class=\"text-accent-500\">Status</span>",
                         "subtitle": "Stay informed with the latest updates on our product availability and performance."
                     }
                 }
@@ -264,8 +264,8 @@
                 "faq-page": {
                     "type": "faq-page",
                     "properties": {
-                        "headline": "Need Help? \u2753",
-                        "title": "Frequently Asked <span class=\"text-accent-500\">Questions<\/span>",
+                        "headline": "Need Help? ❓",
+                        "title": "Frequently Asked <span class=\"text-accent-500\">Questions</span>",
                         "subtitle": "Find answers to the most common questions about our products and services.",
                         "items_per_row": 1,
                         "items": [
@@ -287,8 +287,8 @@
                 "terms-page": {
                     "type": "terms-page",
                     "properties": {
-                        "headline": "Legal Information \ud83d\udcdc",
-                        "title": "Terms of <span class=\"text-accent-500\">Service<\/span>",
+                        "headline": "Legal Information 📜",
+                        "title": "Terms of <span class=\"text-accent-500\">Service</span>",
                         "subtitle": "Read our terms of service to understand your rights and responsibilities when using our products and services."
                     }
                 }
@@ -303,8 +303,8 @@
                 "privacy-policy-page": {
                     "type": "privacy-policy-page",
                     "properties": {
-                        "headline": "Your Privacy Matters \ud83d\udd12",
-                        "title": "Privacy <span class=\"text-accent-500\">Policy<\/span>",
+                        "headline": "Your Privacy Matters 🔒",
+                        "title": "Privacy <span class=\"text-accent-500\">Policy</span>",
                         "subtitle": "Learn how we collect, use, and protect your personal information when you use our products and services."
                     }
                 }
@@ -319,8 +319,8 @@
                 "refund-policy-page": {
                     "type": "refund-policy-page",
                     "properties": {
-                        "headline": "Hassle-Free Returns \ud83d\udd04",
-                        "title": "Refund <span class=\"text-accent-500\">Policy<\/span>",
+                        "headline": "Hassle-Free Returns 🔄",
+                        "title": "Refund <span class=\"text-accent-500\">Policy</span>",
                         "subtitle": "Understand our refund policy and how to request a refund for our products and services."
                     }
                 }
@@ -335,8 +335,8 @@
                 "blog-page": {
                     "type": "blog-page",
                     "properties": {
-                        "headline": "From Our Team \ud83d\udcf0",
-                        "title": "Our <span class=\"text-accent-500\">Blog<\/span>",
+                        "headline": "From Our Team 📰",
+                        "title": "Our <span class=\"text-accent-500\">Blog</span>",
                         "subtitle": "Read the latest news, updates, and stories from our team.",
                         "enlarge_newest_post": true
                     }
@@ -396,37 +396,37 @@
     },
     "global": {
         "properties": {
-            "accent_color": "#6571ff",
-            "background_color": "#070d19",
+            "accent_color": "#9900ff",
+            "background_color": "#121212",
             "text_primary_color": "#ffffff",
             "text_accent_color": "#ffffff",
             "font": "Rubik",
             "snow": false,
             "snow_color": "#ffffff",
             "group_modal_product_card_type": "list",
-            "product_card_image_aspect_ratio": "16\/9",
-            "product_page_image_aspect_ratio": "16\/9",
+            "product_card_image_aspect_ratio": "16/9",
+            "product_page_image_aspect_ratio": "16/9",
             "product_image_fit": "cover",
-            "group_card_image_aspect_ratio": "16\/9",
+            "group_card_image_aspect_ratio": "16/9",
             "group_image_fit": "cover",
-            "blog_card_image_aspect_ratio": "16\/9",
+            "blog_card_image_aspect_ratio": "16/9",
             "blog_image_fit": "cover"
         },
         "components": {
             "announcement": {
                 "announcements": [
                     {
-                        "text": "\ud83d\udca5 New Premium Theme Available!",
+                        "text": "💥 New Premium Theme Available!",
                         "link": null,
                         "new_tab": false
                     },
                     {
-                        "text": "\ud83d\udd25 Spice Up Your Shop with New Features!",
+                        "text": "🔥 Spice Up Your Shop with New Features!",
                         "link": null,
                         "new_tab": false
                     },
                     {
-                        "text": "\u231b What Are You Waiting For? Upgrade Now!",
+                        "text": "⌛ What Are You Waiting For? Upgrade Now!",
                         "link": null,
                         "new_tab": false
                     }
@@ -439,27 +439,27 @@
                 "left_links": [
                     {
                         "text": "Home",
-                        "link": "\/",
+                        "link": "/",
                         "shape": "regular"
                     },
                     {
                         "text": "Products",
-                        "link": "\/products",
+                        "link": "/products",
                         "shape": "regular"
                     },
                     {
                         "text": "Feedback",
-                        "link": "\/feedback",
+                        "link": "/feedback",
                         "shape": "regular"
                     },
                     {
                         "text": "Status",
-                        "link": "\/status",
+                        "link": "/status",
                         "shape": "regular"
                     },
                     {
                         "text": "Blog",
-                        "link": "\/blog",
+                        "link": "/blog",
                         "shape": "regular"
                     }
                 ],
@@ -472,58 +472,58 @@
                 "show_shop_name": true,
                 "show_logo": false,
                 "show_socials": true,
-                "copyright": "Copyright \u00a9 {{ shop.name }} {{ '' | currentYear }}",
+                "copyright": "Copyright © {{ shop.name }} {{ '' | currentYear }}",
                 "links_title": "Navigation",
                 "links": [
                     {
                         "text": "Home",
-                        "link": "\/"
+                        "link": "/"
                     },
                     {
                         "text": "Products",
-                        "link": "\/products"
+                        "link": "/products"
                     },
                     {
                         "text": "Feedback",
-                        "link": "\/feedback"
+                        "link": "/feedback"
                     },
                     {
                         "text": "Status",
-                        "link": "\/status"
+                        "link": "/status"
                     },
                     {
                         "text": "Blog",
-                        "link": "\/blog"
+                        "link": "/blog"
                     }
                 ],
                 "links_2_title": "My Account",
                 "links_2": [
                     {
                         "text": "Dashboard",
-                        "link": "\/customer\/dashboard"
+                        "link": "/customer/dashboard"
                     },
                     {
                         "text": "Orders",
-                        "link": "\/customer\/invoices"
+                        "link": "/customer/invoices"
                     },
                     {
                         "text": "Tickets",
-                        "link": "\/customer\/tickets"
+                        "link": "/customer/tickets"
                     }
                 ],
                 "links_3_title": "Legal",
                 "links_3": [
                     {
                         "text": "Terms of Service",
-                        "link": "\/terms-of-service"
+                        "link": "/terms-of-service"
                     },
                     {
                         "text": "Privacy Policy",
-                        "link": "\/privacy-policy"
+                        "link": "/privacy-policy"
                     },
                     {
                         "text": "Refund Policy",
-                        "link": "\/refund-policy"
+                        "link": "/refund-policy"
                     }
                 ]
             },
