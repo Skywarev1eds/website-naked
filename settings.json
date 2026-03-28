@@ -1,1 +1,546 @@
-{"templates":{"shop":{"layout":"master","components":{"hero":{"type":"hero","properties":{"headline":"New stock arrived 🚛","title":"{{ shop.name }} is the <span class=\"text-accent-500\">number 1</span> destination for all your needs!","subtitle":null,"show_searchbar":true,"buttons":[{"text":"Shop Now","icon":null,"link":"/products","new_tab":false,"color":"primary","style":"regular"},{"text":"About Us","icon":null,"link":"#about-us","new_tab":false,"color":"secondary","style":"outline"}],"alignment":"center","height":"medium","text_width":"large","background_glow":true,"background_image":null,"side_image":null,"side_video_link":null}},"about-us":{"type":"about-us","properties":{"title":"About us","text":"{{ shop.name }} is the ultimate solution for selling digital products online. With our extensive experience in running eCommerce stores, we understand the unique challenges that come with selling digital goods. This understanding has driven us to create {{ shop.name }}, empowering individuals like you to start selling digital products online with ease.","highlights":[{"title":"Instant Delivery","description":"We provide instant delivery for all of our products to ensure the best experience for our customers.","icon":"fas fa-star"},{"title":"Secure Payments","description":"We use the latest technology to ensure that your payments are secure and your data is safe.","icon":"fas fa-star"},{"title":"24/7 Support","description":"Our support team is available 24/7 to help you with any questions or issues you might have.","icon":"fas fa-star"},{"title":"Huge Selection","description":"We offer a huge selection of products to ensure that you can find exactly what you need.","icon":"fas fa-star"}]},"products":{"type":"products","properties":{"headline":"Promo 30% off 💰","title":"Shop here!","subtitle":"Explore our exclusive products and offers, ranging from something to everything!","centered":true,"show_searchbar":true}},"stats":{"type":"stats","properties":{"headline":"Customers Love Us ❤️","title":"Our Stats","subtitle":"Here are some of our key stats that show our success!","stats":[{"title":"Products Sold","value":"{{ shop.products_sold }}"},{"title":"Happy Customers","value":"{{ shop.total_customers }}"},{"title":"Average Rating","value":"{{ shop.average_rating }}"}],"animated":true}},"feedbacks":{"type":"feedbacks","properties":{"title":"Reviews","subtitle":"See what our customers have to say about us and our products!","amount":4}},"socials":{"type":"socials","properties":{"headline":"Follow Us 👇","title":"Our Socials","subtitle":"Stay up to date with our latest news and offers by following us on social media!","socials":[{"name":"Discord","icon":"fab fa-discord","link":"{{ shop.discord_url }}"},{"name":"Telegram","icon":"fab fa-telegram","link":"{{ shop.telegram_url }}"},{"name":"Instagram","icon":"fab fa-instagram","link":"{{ shop.instagram_url }}"},{"name":"TikTok","icon":"fab fa-tiktok","link":"{{ shop.tiktok_url }}"}]}},"faq":{"type":"faq","properties":{"headline":"Important Info 📝","title":"FAQ","subtitle":"Here are some of the most frequently asked questions about our products.","items_per_row":1,"items":[{"question":"This is a question.","answer":"This is the answer to the question."}]}},"blog-posts":{"type":"blog-posts","properties":{"headline":"Stay Updated 📣","title":"Latest Blog Posts","subtitle":"Check out our latest blog posts and stay updated with the latest news and trends.","amount":4}}},"components_order":["hero","about-us","products","stats","feedbacks","socials","faq","blog-posts"]},"cart":{"layout":"master","components":{"cart-page":{"type":"cart-page","properties":{"headline":"Your Cart 🛒","title":"Shopping <span class=\"text-accent-500\">Cart</span>","subtitle":"Review your selected items before proceeding to checkout."}}},"components_order":["cart-page"]},"products":{"layout":"master","components":{"products-page":{"type":"products-page","properties":{"headline":"Browse Our Collection 🔍","default_title":"Our <span class=\"text-accent-500\">Products</span>","category_title":"{{ category.name }} <span class=\"text-accent-500\">Products</span>","default_subtitle":"Discover our wide range of products.","category_subtitle":"{{ category.description }}"}}},"components_order":["products-page"]},"product":{"layout":"master","components":{"product-page":{"type":"product-page","properties":{"variant_selector":"buttons","show_feedbacks":true,"feedbacks_amount":4,"hide_add_to_cart":false,"hide_buy_now":false}}},"components_order":["product-page"]},"feedback":{"layout":"master","components":{"feedback-page":{"type":"feedback-page","properties":{"headline":"Rated with {{ shop.average_rating }} ⭐","title":"Customer <span class=\"text-accent-500\">Reviews</span>","subtitle":"Read what our customers have to say about us!","hide_sorting":false}}},"components_order":["feedback-page"]},"status":{"layout":"master","components":{"status-page":{"type":"status-page","properties":{"headline":"Real-Time Updates 🕒","title":"Product <span class=\"text-accent-500\">Status</span>","subtitle":"Stay informed with the latest updates on our product availability and performance."}}},"components_order":["status-page"]},"faq":{"layout":"master","components":{"faq-page":{"type":"faq-page","properties":{"headline":"Need Help? ❓","title":"Frequently Asked <span class=\"text-accent-500\">Questions</span>","subtitle":"Find answers to the most common questions about our products and services.","items_per_row":1,"items":[{"question":"This is a question.","answer":"This is the answer to the question."}]}},"components_order":["faq-page"]},"terms":{"layout":"master","components":{"terms-page":{"type":"terms-page","properties":{"headline":"Legal Information 📄","title":"Terms of <span class=\"text-accent-500\">Service</span>","subtitle":"Read our terms of service to understand your rights and responsibilities when using our products and services."}}},"components_order":["terms-page"]},"privacy-policy":{"layout":"master","components":{"privacy-policy-page":{"type":"privacy-policy-page","properties":{"headline":"Your Privacy Matters 🔒","title":"Privacy <span class=\"text-accent-500\">Policy</span>","subtitle":"Learn how we collect, use, and protect your personal information when you use our products and services."}}},"components_order":["privacy-policy-page"]},"refund-policy":{"layout":"master","components":{"refund-policy-page":{"type":"refund-policy-page","properties":{"headline":"Hassle-Free Returns ↩️","title":"Refund <span class=\"text-accent-500\">Policy</span>","subtitle":"Understand our refund policy and how to request a refund for our products and services."}}},"components_order":["refund-policy-page"]},"blog":{"layout":"master","components":{"blog-page":{"type":"blog-page","properties":{"headline":"From Our Team 📰","title":"Our <span class=\"text-accent-500\">Blog</span>","subtitle":"Read the latest news, updates, and stories from our team.","enlarge_newest_post":true}}},"components_order":["blog-page"]},"blog-post":{"layout":"master","components":{"blog-post":{"type":"blog-post-page","properties":[]}},"components_order":["blog-post-page"]},"customer-dashboard":{"layout":"master","components":[],"components_order":[]},"customer-invoices":{"layout":"master","components":[],"components_order":[]},"customer-tickets":{"layout":"master","components":[],"components_order":[]},"customer-ticket":{"layout":"master","components":[],"components_order":[]},"customer-balance":{"layout":"master","components":[],"components_order":[]},"customer-affiliate":{"layout":"master","components":[],"components_order":[]},"maintenance":{"layout":"master","components":[],"components_order":[]}}},"global":{"properties":{"accent_color":"#00ff00","background_color":"#121212","text_primary_color":"#ffffff","text_accent_color":"#ffffff","font":"Poppins","snow":false,"snow_color":"#ffffff","group_modal_product_card_type":"list","product_card_image_aspect_ratio":"16/9","product_page_image_aspect_ratio":"16/9","product_image_fit":"cover","group_card_image_aspect_ratio":"16/9","group_image_fit":"cover","blog_card_image_aspect_ratio":"16/9","blog_image_fit":"cover"},"components":{"announcement":{"announcements":[{"text":"🚀 New Premium Theme Available!","link":null,"new_tab":false},{"text":"🔥 Spice Up Your Shop with New Features!","link":null,"new_tab":false},{"text":"⏰ What Are You Waiting For? Upgrade Now!","link":null,"new_tab":false}],"animation":"scroll"},"navbar":{"show_shop_name":false,"show_logo":true,"left_links":[{"text":"Store","link":"/","shape":"regular"},{"text":"Products","link":"/products","shape":"regular"},{"text":"Downloads","link":"/downloads","shape":"regular"},{"text":"Status","link":"/status","shape":"regular"},{"text":"Trust Profile","link":"/trust-profile","shape":"regular"},{"text":"Guide","link":"https://basilcheatsdocs.org","shape":"regular","new_tab":true},{"text":"Discord","link":"https://discord.gg/unlockers","shape":"regular","new_tab":true}],"right_links":[],"hide_currency_selector":false,"hide_customer_dashboard":false,"hide_cart":false},"footer":{"show_shop_name":true,"show_logo":false,"show_socials":true,"copyright":"Copyright © {{ shop.name }} {{ '' | currentYear }}","links_title":"Navigation","links":[{"text":"Home","link":"/"},{"text":"Products","link":"/products"},{"text":"Feedback","link":"/feedback"},{"text":"Status","link":"/status"},{"text":"Blog","link":"/blog"}],"links_2_title":"My Account","links_2":[{"text":"Dashboard","link":"/customer/dashboard"},{"text":"Orders","link":"/customer/invoices"},{"text":"Tickets","link":"/customer/tickets"}],"links_3_title":"Legal","links_3":[{"text":"Terms of Service","link":"/terms-of-service"},{"text":"Privacy Policy","link":"/privacy-policy"},{"text":"Refund Policy","link":"/refund-policy"}]}},"coupon":{"enabled":false,"show_logo":false,"headline":"Special Offer","title":"Save 10% Today!","description":"Get an exclusive discount on your next purchase. Limited time offer!","coupon_code":"COUPONCODE","instructions":"Enter the coupon code at checkout.","continue_button_text":"Shop Now","dismiss_button_text":"Maybe Later","show_after_seconds":5,"forget_after_hours":24,"homepage_only":true}}}
+{
+    "templates": {
+        "shop": {
+            "layout": "master",
+            "components": {
+                "hero": {
+                    "type": "hero",
+                    "properties": {
+                        "headline": "New stock arrived 🛺",
+                        "title": "BasilCheats is the <span class=\"text-accent-500\">number 1</span> destination for all your needs!",
+                        "subtitle": "Fine-tune your tactics to dominate your rivals.",
+                        "show_searchbar": true,
+                        "buttons": [
+                            {
+                                "text": "Shop Now",
+                                "icon": null,
+                                "link": "/products",
+                                "new_tab": false,
+                                "color": "primary",
+                                "style": "regular"
+                            },
+                            {
+                                "text": "About Us",
+                                "icon": null,
+                                "link": "#about-us",
+                                "new_tab": false,
+                                "color": "secondary",
+                                "style": "outline"
+                            }
+                        ],
+                        "alignment": "center",
+                        "height": "medium",
+                        "text_width": "large",
+                        "background_glow": true,
+                        "background_image": null,
+                        "side_image": null,
+                        "side_video_link": null
+                    }
+                },
+                "about-us": {
+                    "type": "about-us",
+                    "properties": {
+                        "title": "About us",
+                        "text": "{{ shop.name }} is the ultimate solution for selling digital products online. With our extensive experience in running eCommerce stores, we understand the unique challenges that come with selling digital goods. This understanding has driven us to create {{ shop.name }}, empowering individuals like you to start selling digital products online with ease.",
+                        "highlights": [
+                            {
+                                "title": "Instant Delivery",
+                                "description": "We provide instant delivery for all of our products to ensure the best experience for our customers.",
+                                "icon": "fas fa-star"
+                            },
+                            {
+                                "title": "Secure Payments",
+                                "description": "We use the latest technology to ensure that your payments are secure and your data is safe.",
+                                "icon": "fas fa-star"
+                            },
+                            {
+                                "title": "24/7 Support",
+                                "description": "Our support team is available 24/7 to help you with any questions or issues you might have.",
+                                "icon": "fas fa-star"
+                            },
+                            {
+                                "title": "Huge Selection",
+                                "description": "We offer a huge selection of products to ensure that you can find exactly what you need.",
+                                "icon": "fas fa-star"
+                            }
+                        ]
+                    }
+                },
+                "products": {
+                    "type": "products",
+                    "properties": {
+                        "headline": "Promo 30% off! 💰",
+                        "title": "Shop here!",
+                        "subtitle": "Explore our exclusive products and offers, ranging from something to everything!",
+                        "centered": true,
+                        "show_searchbar": true
+                    }
+                },
+                "stats": {
+                    "type": "stats",
+                    "properties": {
+                        "headline": "Customers Love Us ❤️",
+                        "title": "Our Stats",
+                        "subtitle": "Here are some of our key stats that show our success!",
+                        "stats": [
+                            {
+                                "title": "Products Sold",
+                                "value": "{{ shop.products_sold }}"
+                            },
+                            {
+                                "title": "Happy Customers",
+                                "value": "{{ shop.total_customers }}"
+                            },
+                            {
+                                "title": "Average Rating",
+                                "value": "{{ shop.average_rating }}"
+                            }
+                        ],
+                        "animated": true
+                    }
+                },
+                "feedbacks": {
+                    "type": "feedbacks",
+                    "properties": {
+                        "title": "Reviews",
+                        "subtitle": "See what our customers have to say about us and our products!",
+                        "amount": 4
+                    }
+                },
+                "socials": {
+                    "type": "socials",
+                    "properties": {
+                        "headline": "Follow Us 👇",
+                        "title": "Our Socials",
+                        "subtitle": "Stay up to date with our latest news and offers by following us on social media!",
+                        "socials": [
+                            {
+                                "name": "Discord",
+                                "icon": "fab fa-discord",
+                                "link": "{{ shop.discord_url }}"
+                            },
+                            {
+                                "name": "Telegram",
+                                "icon": "fab fa-telegram",
+                                "link": "{{ shop.telegram_url }}"
+                            },
+                            {
+                                "name": "Instagram",
+                                "icon": "fab fa-instagram",
+                                "link": "{{ shop.instagram_url }}"
+                            },
+                            {
+                                "name": "TikTok",
+                                "icon": "fab fa-tiktok",
+                                "link": "{{ shop.tiktok_url }}"
+                            }
+                        ]
+                    }
+                },
+                "faq": {
+                    "type": "faq",
+                    "properties": {
+                        "headline": "Important Info 📝",
+                        "title": "FAQ",
+                        "subtitle": "Here are some of the most frequently asked questions about our products.",
+                        "items_per_row": 1,
+                        "items": [
+                            {
+                                "question": "This is a question.",
+                                "answer": "This is the answer to the question."
+                            }
+                        ]
+                    }
+                },
+                "blog-posts": {
+                    "type": "blog-posts",
+                    "properties": {
+                        "headline": "Stay Updated 📢",
+                        "title": "Latest Blog Posts",
+                        "subtitle": "Check out our latest blog posts and stay updated with the latest news and trends.",
+                        "amount": 4
+                    }
+                }
+            },
+            "components_order": [
+                "hero",
+                "about-us",
+                "products",
+                "stats",
+                "feedbacks",
+                "socials",
+                "faq",
+                "blog-posts"
+            ]
+        },
+        "cart": {
+            "layout": "master",
+            "components": {
+                "cart-page": {
+                    "type": "cart-page",
+                    "properties": {
+                        "headline": "Your Cart 🛒",
+                        "title": "Shopping <span class=\"text-accent-500\">Cart</span>",
+                        "subtitle": "Review your selected items before proceeding to checkout."
+                    }
+                }
+            },
+            "components_order": [
+                "cart-page"
+            ]
+        },
+        "products": {
+            "layout": "master",
+            "components": {
+                "products-page": {
+                    "type": "products-page",
+                    "properties": {
+                        "headline": "Browse Our Collection 🔍",
+                        "default_title": "Our <span class=\"text-accent-500\">Products</span>",
+                        "category_title": "{{ category.name }} <span class=\"text-accent-500\">Products</span>",
+                        "default_subtitle": "Discover our wide range of products.",
+                        "category_subtitle": "{{ category.description }}"
+                    }
+                }
+            },
+            "components_order": [
+                "products-page"
+            ]
+        },
+        "product": {
+            "layout": "master",
+            "components": {
+                "product-page": {
+                    "type": "product-page",
+                    "properties": {
+                        "variant_selector": "buttons",
+                        "show_feedbacks": true,
+                        "feedbacks_amount": 4,
+                        "hide_add_to_cart": false,
+                        "hide_buy_now": false
+                    }
+                }
+            },
+            "components_order": [
+                "product-page"
+            ]
+        },
+        "feedback": {
+            "layout": "master",
+            "components": {
+                "feedback-page": {
+                    "type": "feedback-page",
+                    "properties": {
+                        "headline": "Rated with {{ shop.average_rating }} ⭐",
+                        "title": "Customer <span class=\"text-accent-500\">Reviews</span>",
+                        "subtitle": "Read what our customers have to say about us!",
+                        "hide_sorting": false
+                    }
+                }
+            },
+            "components_order": [
+                "feedback-page"
+            ]
+        },
+        "status": {
+            "layout": "master",
+            "components": {
+                "status-page": {
+                    "type": "status-page",
+                    "properties": {
+                        "headline": "Real-Time Updates 🕒",
+                        "title": "Product <span class=\"text-accent-500\">Status</span>",
+                        "subtitle": "Stay informed with the latest updates on our product availability and performance."
+                    }
+                }
+            },
+            "components_order": [
+                "status-page"
+            ]
+        },
+        "faq": {
+            "layout": "master",
+            "components": {
+                "faq-page": {
+                    "type": "faq-page",
+                    "properties": {
+                        "headline": "Need Help? ❓",
+                        "title": "Frequently Asked <span class=\"text-accent-500\">Questions</span>",
+                        "subtitle": "Find answers to the most common questions about our products and services.",
+                        "items_per_row": 1,
+                        "items": [
+                            {
+                                "question": "This is a question.",
+                                "answer": "This is the answer to the question."
+                            }
+                        ]
+                    }
+                }
+            },
+            "components_order": [
+                "faq-page"
+            ]
+        },
+        "terms": {
+            "layout": "master",
+            "components": {
+                "terms-page": {
+                    "type": "terms-page",
+                    "properties": {
+                        "headline": "Legal Information 📄",
+                        "title": "Terms of <span class=\"text-accent-500\">Service</span>",
+                        "subtitle": "Read our terms of service to understand your rights and responsibilities when using our products and services."
+                    }
+                }
+            },
+            "components_order": [
+                "terms-page"
+            ]
+        },
+        "privacy-policy": {
+            "layout": "master",
+            "components": {
+                "privacy-policy-page": {
+                    "type": "privacy-policy-page",
+                    "properties": {
+                        "headline": "Your Privacy Matters 🔒",
+                        "title": "Privacy <span class=\"text-accent-500\">Policy</span>",
+                        "subtitle": "Learn how we collect, use, and protect your personal information when you use our products and services."
+                    }
+                }
+            },
+            "components_order": [
+                "privacy-policy-page"
+            ]
+        },
+        "refund-policy": {
+            "layout": "master",
+            "components": {
+                "refund-policy-page": {
+                    "type": "refund-policy-page",
+                    "properties": {
+                        "headline": "Hassle-Free Returns 🔄",
+                        "title": "Refund <span class=\"text-accent-500\">Policy</span>",
+                        "subtitle": "Understand our refund policy and how to request a refund for our products and services."
+                    }
+                }
+            },
+            "components_order": [
+                "refund-policy-page"
+            ]
+        },
+        "blog": {
+            "layout": "master",
+            "components": {
+                "blog-page": {
+                    "type": "blog-page",
+                    "properties": {
+                        "headline": "From Our Team 📰",
+                        "title": "Our <span class=\"text-accent-500\">Blog</span>",
+                        "subtitle": "Read the latest news, updates, and stories from our team.",
+                        "enlarge_newest_post": true
+                    }
+                }
+            },
+            "components_order": [
+                "blog-page"
+            ]
+        },
+        "blog-post": {
+            "layout": "master",
+            "components": {
+                "blog-post": {
+                    "type": "blog-post-page",
+                    "properties": []
+                }
+            },
+            "components_order": [
+                "blog-post-page"
+            ]
+        },
+        "customer-dashboard": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        },
+        "customer-invoices": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        },
+        "customer-tickets": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        },
+        "customer-ticket": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        },
+        "customer-balance": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        },
+        "customer-affiliate": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        },
+        "maintenance": {
+            "layout": "master",
+            "components": [],
+            "components_order": []
+        }
+    },
+    "global": {
+        "properties": {
+            "accent_color": "#00ff00",
+            "background_color": "#121212",
+            "text_primary_color": "#ffffff",
+            "text_accent_color": "#ffffff",
+            "font": "Poppins",
+            "snow": false,
+            "snow_color": "#ffffff",
+            "group_modal_product_card_type": "list",
+            "product_card_image_aspect_ratio": "16/9",
+            "product_page_image_aspect_ratio": "16/9",
+            "product_image_fit": "cover",
+            "group_card_image_aspect_ratio": "16/9",
+            "group_image_fit": "cover",
+            "blog_card_image_aspect_ratio": "16/9",
+            "blog_image_fit": "cover"
+        },
+        "components": {
+            "announcement": {
+                "announcements": [
+                    {
+                        "text": "💥 New Premium Theme Available!",
+                        "link": null,
+                        "new_tab": false
+                    },
+                    {
+                        "text": "🔥 Spice Up Your Shop with New Features!",
+                        "link": null,
+                        "new_tab": false
+                    },
+                    {
+                        "text": "⏰ What Are You Waiting For? Upgrade Now!",
+                        "link": null,
+                        "new_tab": false
+                    }
+                ],
+                "animation": "scroll"
+            },
+            "navbar": {
+                "show_shop_name": false,
+                "show_logo": true,
+                "left_links": [
+                    {
+                        "text": "Home",
+                        "link": "/",
+                        "shape": "regular"
+                    },
+                    {
+                        "text": "Products",
+                        "link": "/products",
+                        "shape": "regular"
+                    },
+                    {
+                        "text": "Feedback",
+                        "link": "/feedback",
+                        "shape": "regular"
+                    },
+                    {
+                        "text": "Status",
+                        "link": "/status",
+                        "shape": "regular"
+                    },
+                    {
+                        "text": "Blog",
+                        "link": "/blog",
+                        "shape": "regular"
+                    }
+                ],
+                "right_links": [],
+                "hide_currency_selector": false,
+                "hide_customer_dashboard": false,
+                "hide_cart": false
+            },
+            "footer": {
+                "show_shop_name": true,
+                "show_logo": false,
+                "show_socials": true,
+                "copyright": "Copyright © {{ shop.name }} {{ '' | currentYear }}",
+                "links_title": "Navigation",
+                "links": [
+                    {
+                        "text": "Home",
+                        "link": "/"
+                    },
+                    {
+                        "text": "Products",
+                        "link": "/products"
+                    },
+                    {
+                        "text": "Feedback",
+                        "link": "/feedback"
+                    },
+                    {
+                        "text": "Status",
+                        "link": "/status"
+                    },
+                    {
+                        "text": "Blog",
+                        "link": "/blog"
+                    }
+                ],
+                "links_2_title": "My Account",
+                "links_2": [
+                    {
+                        "text": "Dashboard",
+                        "link": "/customer/dashboard"
+                    },
+                    {
+                        "text": "Orders",
+                        "link": "/customer/invoices"
+                    },
+                    {
+                        "text": "Tickets",
+                        "link": "/customer/tickets"
+                    }
+                ],
+                "links_3_title": "Legal",
+                "links_3": [
+                    {
+                        "text": "Terms of Service",
+                        "link": "/terms-of-service"
+                    },
+                    {
+                        "text": "Privacy Policy",
+                        "link": "/privacy-policy"
+                    },
+                    {
+                        "text": "Refund Policy",
+                        "link": "/refund-policy"
+                    }
+                ]
+            },
+            "coupon": {
+                "enabled": false,
+                "show_logo": false,
+                "headline": "Special Offer",
+                "title": "Save 10% Today!",
+                "description": "Get an exclusive discount on your next purchase. Limited time offer!",
+                "coupon_code": "COUPONCODE",
+                "instructions": "Enter the coupon code at checkout.",
+                "continue_button_text": "Shop Now",
+                "dismiss_button_text": "Maybe Later",
+                "show_after_seconds": 5,
+                "forget_after_hours": 24,
+                "homepage_only": true
+            }
+        }
+    }
+}
