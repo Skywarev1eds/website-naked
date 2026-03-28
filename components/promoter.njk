@@ -1,0 +1,143 @@
+<section id="{{ componentId }}" class="component" data-component-id="{{ componentId }}">
+
+<style>
+  .bx-promoter {
+    padding: 80px 24px;
+    background: #0a0a0a;
+  }
+
+  .bx-promoter__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .bx-promoter__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+    .bx-promoter__img-wrap { order: -1; }
+  }
+
+  .bx-promoter__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(153,0,255,0.1);
+    border: 1px solid rgba(153,0,255,0.3);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9900ff;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .bx-promoter__title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+
+  .bx-promoter__desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.75;
+    margin: 0 0 32px;
+    max-width: 460px;
+  }
+
+  @media (max-width: 768px) { .bx-promoter__desc { max-width: 100%; margin-left: auto; margin-right: auto; } }
+
+  .bx-promoter__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #9900ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 26px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s, box-shadow 0.15s, transform 0.2s;
+  }
+
+  .bx-promoter__btn:hover {
+    opacity: 0.88;
+    box-shadow: 0 4px 24px rgba(153,0,255,0.4);
+    transform: translateY(-2px);
+  }
+
+  .bx-promoter__img-wrap {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: rgba(153,0,255,0.06);
+    border: 1px solid rgba(153,0,255,0.12);
+  }
+
+  .bx-promoter__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .bx-promoter__img-wrap:hover .bx-promoter__img { transform: scale(1.04); }
+</style>
+
+<div class="bx-promoter">
+  <div class="bx-promoter__inner">
+
+    <div class="bx-promoter__text">
+      {% if properties.badge %}
+        <span class="bx-promoter__badge">{{ properties.badge | renderString }}</span>
+      {% else %}
+        <span class="bx-promoter__badge">💰 Earn Money</span>
+      {% endif %}
+      {% if properties.title %}
+        <h2 class="bx-promoter__title">{{ properties.title | renderString }}</h2>
+      {% else %}
+        <h2 class="bx-promoter__title">Join Our Media Programme</h2>
+      {% endif %}
+      {% if properties.description %}
+        <p class="bx-promoter__desc">{{ properties.description | renderString }}</p>
+      {% else %}
+        <p class="bx-promoter__desc">Partner with Bxxgie's Closet and earn commission by promoting our products to your audience. Join our exclusive affiliate programme and start earning today.</p>
+      {% endif %}
+      <a
+        href="{{ properties.link | default('https://discord.gg/bxxgie') }}"
+        target="_blank"
+        class="bx-promoter__btn"
+      >
+        Become a Promoter
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="bx-promoter__img-wrap">
+      <img
+        class="bx-promoter__img"
+        src="{{ properties.image | default('https://i.postimg.cc/V6P3NDWb/PROMOTER-BXXGIES.png') }}"
+        alt="Join Our Media Programme"
+        loading="lazy"
+      >
+    </div>
+
+  </div>
+</div>
+
+</section>

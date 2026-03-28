@@ -2,3 +2,14 @@
  * Enter any custom CSS here.
  * This file will not be overwritten by theme updates.
 */
+
+:root {
+  --cl-accent: #9900ff;
+  --cl-accent-rgb: 153,0,255;
+  --cl-background-primary: #121212;
+  --cl-background-primary-rgb: 18,18,18;
+  --cl-background-secondary: #121212;
+  --cl-background-secondary-rgb: 18,18,18;
+  --cl-border: #ffffff0d;
+  --bs-font-sans-serif: 'Poppins', sans-serif;
+}
