@@ -46,8 +46,8 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(0,255,0,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,0,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(153,0,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(153,0,255,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
     -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
@@ -57,7 +57,7 @@
   .hero-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(0,255,0,0.07) 0%, transparent 70%);
+    background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(153,0,255,0.07) 0%, transparent 70%);
     pointer-events: none;
     z-index: 1;
   }
@@ -86,8 +86,8 @@
   }
 
   .hero-trust-badge:hover {
-    border-color: rgba(0,255,0,0.3);
-    background: rgba(0,255,0,0.05);
+    border-color: rgba(153,0,255,0.3);
+    background: rgba(153,0,255,0.05);
   }
 
   .hero-trust-inner {
@@ -107,14 +107,14 @@
     justify-content: center;
     width: 26px;
     height: 26px;
-    background: rgba(0,255,0,0.1);
+    background: rgba(153,0,255,0.1);
     border-radius: 50%;
-    color: #00ff00;
+    color: #9900ff;
     flex-shrink: 0;
   }
 
   .hero-trust-arrow {
-    color: #00ff00;
+    color: #9900ff;
     opacity: 0.75;
     flex-shrink: 0;
   }
@@ -125,7 +125,7 @@
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.01em;
-    background: linear-gradient(180deg, #ffffff 10%, #00ff00 100%);
+    background: linear-gradient(180deg, #ffffff 10%, #9900ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -154,7 +154,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #00ff00;
+    background: #9900ff;
     color: #050505;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -165,12 +165,12 @@
     border: none;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
-    box-shadow: 0 0 24px rgba(0,255,0,0.2), 0 2px 8px rgba(0,0,0,0.4);
+    box-shadow: 0 0 24px rgba(153,0,255,0.2), 0 2px 8px rgba(0,0,0,0.4);
   }
 
   .hero-prod-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0,255,0,0.35), 0 4px 16px rgba(0,0,0,0.5);
+    box-shadow: 0 0 36px rgba(153,0,255,0.35), 0 4px 16px rgba(0,0,0,0.5);
     filter: brightness(1.06);
   }
 
@@ -248,7 +248,7 @@
   {% if properties.background_image %}
   <div class="hero-bg" style="background-image: url('{{ properties.background_image | imageUrl }}');"></div>
   {% else %}
-  <div class="hero-bg" style="background-image: url('https://i.postimg.cc/LsmfcZZ2/INDIGO-HERO.png');"></div>
+  <div class="hero-bg" style="background-image: url('https://i.postimg.cc/sfwpf136/PURPLE-HERO.png');"></div>
   {% endif %}
   <div class="hero-overlay"></div>
   <div class="hero-grid"></div>

@@ -1,143 +1,272 @@
-<div 
+<style>
+  .bx-login-modal__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .bx-login-modal__box {
+    background: rgba(18,18,18,0.75);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 36px 32px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  }
+
+  .bx-login-modal__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .bx-login-modal__icon {
+    width: 44px; height: 44px;
+    background: rgba(153,0,255,0.12);
+    border: 1px solid rgba(153,0,255,0.3);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #9900ff;
+    flex-shrink: 0;
+  }
+
+  .bx-login-modal__titles { flex: 1; }
+
+  .bx-login-modal__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 4px;
+  }
+
+  .bx-login-modal__sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin: 0;
+  }
+
+  .bx-login-modal__close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .bx-login-modal__close:hover { color: #fff; background: rgba(255,255,255,0.06); }
+
+  .bx-login-modal__label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 8px;
+  }
+
+  .bx-login-modal__hint {
+    display: block;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .bx-login-modal__input {
+    width: 100%;
+    padding: 11px 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .bx-login-modal__input:focus {
+    border-color: rgba(153,0,255,0.5);
+    box-shadow: 0 0 0 3px rgba(153,0,255,0.12);
+  }
+
+  .bx-login-modal__otp-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .bx-login-modal__otp-input {
+    flex: 1;
+    height: 48px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .bx-login-modal__otp-input:focus {
+    border-color: rgba(153,0,255,0.5);
+    box-shadow: 0 0 0 3px rgba(153,0,255,0.12);
+  }
+
+  .bx-login-modal__error {
+    font-size: 12px;
+    color: #f87171;
+    margin-top: 8px;
+  }
+
+  .bx-login-modal__btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 13px 24px;
+    background: #9900ff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s, box-shadow 0.15s;
+  }
+
+  .bx-login-modal__btn:hover:not(:disabled) {
+    opacity: 0.88;
+    box-shadow: 0 4px 24px rgba(153,0,255,0.4);
+  }
+
+  .bx-login-modal__btn:disabled { opacity: 0.45; pointer-events: none; }
+</style>
+
+<div
   x-show="appCustomer.modalIsOpen"
   x-cloak
-  class="fixed inset-0 z-50 overflow-y-auto"
-  aria-labelledby="login-modal-title"
+  class="bx-login-modal__backdrop"
   role="dialog"
   aria-modal="true"
 >
-  <div class="flex items-center justify-center min-h-screen px-4 text-center">
-    <div 
-      x-show="appCustomer.modalIsOpen"
-      x-transition:enter="transition ease-out duration-300 transform"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="transition ease-in duration-200 transform"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-      @click="appCustomer.modalClose()"
-      class="fixed inset-0 transition-opacity bg-black/75"
-      aria-hidden="true"
-    ></div>
-
-    <div 
-      x-show="appCustomer.modalIsOpen"
-      x-transition:enter="transition ease-out duration-300 transform"
-      x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-      x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-      x-transition:leave="transition ease-in duration-200 transform"
-      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-      x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-      class="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform border-2 border-white/5 rounded-xl bg-background/75 backdrop-blur-lg text-t-primary"
-    >
-      <div class="flex items-start justify-between gap-4 mb-4">
-        <h3 class="text-xl font-bold truncate">
-          Log in to Your Customer Account
-        </h3>
-
-        <button @click="appCustomer.modalClose()" class="text-t-primary focus:outline-none hover:text-accent">
-          <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24"><path fill="currentColor" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
-        </button>
+  <div
+    x-show="appCustomer.modalIsOpen"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+    x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+    @click.stop
+    class="bx-login-modal__box"
+  >
+    <div class="bx-login-modal__head">
+      <div class="bx-login-modal__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </div>
-
-      <div x-show="appCustomer.modalStep === 1">
-        <form @submit.prevent="appCustomer.modalRequestOtp()">
-          <div>
-            <label class="block text-t-primary/80">
-              E-mail Address
-            </label>
-            <small class="block -mt-px text-t-primary/50">
-              We'll send you a one-time password to this email address.
-            </small>
-          </div>
-          <div class="mt-2">
-            <input 
-              type="email"
-              x-model="appCustomer.modalEmail"
-              x-ref="appCustomer.modalEmailInput"
-              placeholder="name@domain.com"
-              class="w-full py-2 px-4 text-t-primary bg-white/5 border border-white/5 rounded-lg focus:border-accent-500 focus:ring-accent-500 focus:ring-2 focus:ring-opacity-50 focus:outline-none"
-            />
-          </div>
-
-          {% if altcha_shop_customer %}
-            <div
-              x-cloak
-              x-show="!appCustomer.altchaPayload"
-              class="transition-opacity mt-2"
-              x-transition:enter="transition ease-out duration-300 transform"
-              x-transition:enter-start="opacity-0"
-              x-transition:enter-end="opacity-100"
-              x-transition:leave="transition ease-in duration-200 transform"
-              x-transition:leave-start="opacity-100"
-              x-transition:leave-end="opacity-0"
-            >
-              <altcha-widget
-                challengejson='{{ altcha_shop_customer | json }}'
-                auto="onload"
-                hidefooter="true"
-                hidelogo="true"
-                x-ref="appCustomer.altcha"
-              ></altcha-widget>
-            </div>
-          {% endif %}
-
-          <p x-show="appCustomer.modalEmailError" class="text-red-500 text-sm mt-2" x-text="appCustomer.modalEmailError"></p>
-          <button 
-            type="submit"
-            class="px-6 py-2 mt-4 rounded-full w-full flex justify-center items-center gap-3 border-2 font-semibold bg-accent-500 border-accent-500 text-t-accent hover:enabled:bg-accent-500/50 hover:enabled:text-t-primary transition-colors duration-300 ease-in-out disabled:opacity-50 disabled:pointer-events-none"
-            :disabled="appCustomer.modalLoading"
-          >
-            <span>Continue</span>
-            <template x-if="!appCustomer.modalLoading">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M16.15 13H5q-.425 0-.712-.288T4 12t.288-.712T5 11h11.15L13.3 8.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L19.3 11.3q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.575 4.575q-.3.3-.712.288t-.713-.313q-.275-.3-.288-.7t.288-.7z"/></svg>
-            </template>
-            <template x-if="appCustomer.modalLoading">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="16" stroke-dashoffset="16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
-            </template>
-          </button>
-        </form>
+      <div class="bx-login-modal__titles">
+        <h3 class="bx-login-modal__title">Welcome Back</h3>
+        <p class="bx-login-modal__sub">Log in to your customer account</p>
       </div>
-
-      <div x-show="appCustomer.modalStep === 2">
-        <form @submit.prevent="appCustomer.modalLogin()">
-          <div>
-            <label class="block text-t-primary/80">
-              One Time Password
-            </label>
-            <small class="block -mt-px text-t-primary/50">
-              A 6-digit code has been sent to <span x-text="appCustomer.modalEmail"></span>.
-            </small>
-          </div>
-          <div class="flex gap-2 mt-2">
-            {% for index in range(6) %}
-              <input 
-                type="text"
-                maxlength="1"
-                x-model="appCustomer.modalOtpDigits[{{ index }}]"
-                x-ref="appCustomer.modalOtpInputs[{{ index }}]"
-                @input="appCustomer.modalOtpHandleInput({{ index }})"
-                @keydown="appCustomer.modalOtpHandleKeyDown({{ index }}, $event)"
-                class="w-9 h-[2.625rem] text-center text-lg text-t-primary bg-white/5 border border-white/5 rounded-lg focus:border-accent-500 focus:ring-accent-500 focus:ring-2 focus:ring-opacity-50 focus:outline-none"
-              />
-            {% endfor %}
-          </div>
-          <p x-show="appCustomer.modalOtpError" class="text-red-500 text-sm mt-2" x-text="appCustomer.modalOtpError"></p>
-          <button 
-            type="submit"
-            class="px-6 py-2 mt-4 rounded-full w-full flex justify-center items-center gap-3 border-2 font-semibold bg-accent-500 border-accent-500 text-t-accent hover:enabled:bg-accent-500/50 hover:enabled:text-t-primary transition-colors duration-300 ease-in-out disabled:opacity-50 disabled:pointer-events-none"
-            :disabled="appCustomer.modalLoading"
-          >
-            <span>Log In</span>
-            <template x-if="!appCustomer.modalLoading">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M16.15 13H5q-.425 0-.712-.288T4 12t.288-.712T5 11h11.15L13.3 8.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L19.3 11.3q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.575 4.575q-.3.3-.712.288t-.713-.313q-.275-.3-.288-.7t.288-.7z"/></svg>
-            </template>
-            <template x-if="appCustomer.modalLoading">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="16" stroke-dashoffset="16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
-            </template>
-          </button>
-        </form>
-      </div>
+      <button class="bx-login-modal__close" @click="appCustomer.modalClose()" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
     </div>
+
+    <!-- Step 1: Email -->
+    <div x-show="appCustomer.modalStep === 1">
+      <form @submit.prevent="appCustomer.modalRequestOtp()">
+        <label class="bx-login-modal__label">E-mail Address</label>
+        <span class="bx-login-modal__hint">We'll send you a one-time password to this email address.</span>
+        <input
+          type="email"
+          x-model="appCustomer.modalEmail"
+          x-ref="appCustomer.modalEmailInput"
+          placeholder="name@domain.com"
+          class="bx-login-modal__input"
+        />
+
+        {% if altcha_shop_customer %}
+          <div
+            x-cloak
+            x-show="!appCustomer.altchaPayload"
+            class="mt-3 transition-opacity"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+          >
+            <altcha-widget
+              challengejson='{{ altcha_shop_customer | json }}'
+              auto="onload"
+              hidefooter="true"
+              hidelogo="true"
+              x-ref="appCustomer.altcha"
+            ></altcha-widget>
+          </div>
+        {% endif %}
+
+        <p x-show="appCustomer.modalEmailError" class="bx-login-modal__error" x-text="appCustomer.modalEmailError"></p>
+        <button type="submit" class="bx-login-modal__btn" :disabled="appCustomer.modalLoading">
+          <span>Continue</span>
+          <template x-if="!appCustomer.modalLoading">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </template>
+          <template x-if="appCustomer.modalLoading">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="16" stroke-dashoffset="16" stroke-linecap="round" stroke-width="2" d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
+          </template>
+        </button>
+      </form>
+    </div>
+
+    <!-- Step 2: OTP -->
+    <div x-show="appCustomer.modalStep === 2">
+      <form @submit.prevent="appCustomer.modalLogin()">
+        <label class="bx-login-modal__label">One-Time Password</label>
+        <span class="bx-login-modal__hint">A 6-digit code has been sent to <strong x-text="appCustomer.modalEmail" style="color:rgba(255,255,255,0.65);"></strong>.</span>
+        <div class="bx-login-modal__otp-row">
+          {% for index in range(6) %}
+          <input
+            type="text"
+            maxlength="1"
+            x-model="appCustomer.modalOtpDigits[{{ index }}]"
+            x-ref="appCustomer.modalOtpInputs[{{ index }}]"
+            @input="appCustomer.modalOtpHandleInput({{ index }})"
+            @keydown="appCustomer.modalOtpHandleKeyDown({{ index }}, $event)"
+            class="bx-login-modal__otp-input"
+          />
+          {% endfor %}
+        </div>
+        <p x-show="appCustomer.modalOtpError" class="bx-login-modal__error" x-text="appCustomer.modalOtpError"></p>
+        <button type="submit" class="bx-login-modal__btn" :disabled="appCustomer.modalLoading">
+          <span>Log In</span>
+          <template x-if="!appCustomer.modalLoading">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </template>
+          <template x-if="appCustomer.modalLoading">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="16" stroke-dashoffset="16" stroke-linecap="round" stroke-width="2" d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>
+          </template>
+        </button>
+      </form>
+    </div>
+
   </div>
+
+  <!-- Backdrop click to close -->
+  <div class="fixed inset-0 -z-10" @click="appCustomer.modalClose()"></div>
 </div>

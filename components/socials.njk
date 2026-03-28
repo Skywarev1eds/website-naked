@@ -1,43 +1,371 @@
 <section id="{{ componentId }}" class="component" data-component-id="{{ componentId }}">
-  <div class="container mx-auto flex flex-col px-4 mb-16 lg:mb-32">
-    {% if properties.headline or properties.title or properties.subtitle %}
-    <div class="flex flex-col gap-4 mb-8 text-center">
+
+<style>
+  .cypher-bento { padding: 80px 0; }
+
+  .cb-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  .cb-header { text-align: center; margin-bottom: 48px; }
+
+  .cb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(153,0,255,0.1);
+    border: 1px solid rgba(153,0,255,0.3);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9900ff;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .cb-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+
+  .cb-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .cb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .cb-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .cb-card--bestseller { grid-column: 1; grid-row: auto; }
+    .cb-card--payments { grid-column: 1; }
+  }
+
+  .cb-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cb-card:hover {
+    border-color: rgba(153,0,255,0.3);
+    box-shadow: 0 8px 40px rgba(153,0,255,0.08);
+  }
+
+  /* Best Seller card: col 1 rows 1+2 */
+  .cb-card--bestseller {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+
+  .cb-bestseller-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://bxxgies-closet.com/storage/products/omega-internal.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform 0.4s ease;
+  }
+
+  .cb-card--bestseller:hover .cb-bestseller-bg { transform: scale(1.04); }
+
+  .cb-bestseller-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.5) 50%, rgba(8,8,8,0.2) 100%);
+    z-index: 1;
+  }
+
+  .cb-bestseller-content { position: relative; z-index: 2; }
+
+  .cb-bestseller-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(153,0,255,0.2);
+    border: 1px solid rgba(153,0,255,0.4);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #c060ff;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .cb-bestseller-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+
+  .cb-bestseller-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin: 0 0 16px;
+  }
+
+  .cb-bestseller-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #9900ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s, box-shadow 0.15s;
+  }
+
+  .cb-bestseller-btn:hover { opacity: 0.88; box-shadow: 0 4px 20px rgba(153,0,255,0.4); }
+
+  /* Payments card: col 2, row 1 */
+  .cb-card--payments {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 200px;
+  }
+
+  .cb-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cb-card-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+  }
+
+  .cb-payment-track-wrap {
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  }
+
+  .cb-payment-track {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    animation: cb-scroll 18s linear infinite;
+    width: max-content;
+  }
+
+  .cb-payment-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    white-space: nowrap;
+  }
+
+  @keyframes cb-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Delivery card: col 2, row 2 */
+  .cb-card--delivery {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cb-pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .cb-pipe-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cb-pipe-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(153,0,255,0.12);
+    border: 1.5px solid rgba(153,0,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9900ff;
+    font-size: 18px;
+    transition: background 0.3s, border-color 0.3s;
+    animation: cb-pipe-pulse 2.4s ease-in-out infinite;
+  }
+
+  .cb-pipe-icon:nth-child(1) { animation-delay: 0s; }
+  .cb-pipe-icon:nth-child(2) { animation-delay: 0.8s; }
+  .cb-pipe-icon:nth-child(3) { animation-delay: 1.6s; }
+
+  @keyframes cb-pipe-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(153,0,255,0.3); }
+    50%       { box-shadow: 0 0 0 8px rgba(153,0,255,0); }
+  }
+
+  .cb-pipe-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+  }
+
+  .cb-pipe-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(153,0,255,0.4), rgba(153,0,255,0.1));
+    margin-bottom: 26px;
+    min-width: 24px;
+  }
+
+  /* Quality card — replaced with a 4th card alongside delivery inside col 2 row 2 */
+</style>
+
+<div class="cypher-bento">
+  <div class="cb-container">
+
+    <div class="cb-header">
       {% if properties.headline %}
       <div>
-        <span class="inline-block px-6 py-2 rounded-full border-2 border-white/5 bg-white/5 text-accent-100 text-sm font-semibold hover:translate-y-[-2px] transition-transform duration-300 ease-in-out" data-dsr>
-          {{ properties.headline | renderString }}
-        </span>
+        <span class="cb-badge" data-dsr>{{ properties.headline | renderString }}</span>
       </div>
       {% endif %}
       {% if properties.title %}
-      <h2 class="text-4xl lg:text-5xl font-bold text-t-primary" data-dsr>
-        {{ properties.title | renderString }}
-      </h2>
+      <h2 class="cb-title" data-dsr>{{ properties.title | renderString }}</h2>
       {% endif %}
       {% if properties.subtitle %}
-      <p class="text-base text-t-primary/50" data-dsr>
-        {{ properties.subtitle | renderString }}
-      </p>
+      <p class="cb-subtitle" data-dsr>{{ properties.subtitle | renderString }}</p>
       {% endif %}
     </div>
-    {% endif %}
 
-    <div class="p-8 rounded-xl border-2 border-white/5 bg-black/5 backdrop-blur-2xl overflow-hidden relative lg:p-16" data-dsr>
-      <div class="mx-auto absolute -z-10 aspect-square rounded-full -translate-y-1/3 left-0 top-0 -translate-x-1/3 blur-3xl bg-accent-500/40 w-[10%]" aria-hidden="true"></div>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-[repeat(auto-fit,_minmax(12rem,_1fr))]">
-        {% for social in properties.socials %}
-        <a href="{{ social.link | renderString }}" target="_blank" class="flex flex-col items-center gap-4 text-t-primary hover:text-accent-500">
-          <span class="inline-flex justify-center items-center size-12 rounded-xl relative overflow-hidden bg-accent-500/20 border border-accent-500 text-accent-500">
-            <i class="{{ social.icon }} fa-fw"></i>
-          </span>
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold">
-              {{ social.name }}
-            </h4>
+    <div class="cb-grid">
+
+      <!-- Best Seller card -->
+      <div class="cb-card cb-card--bestseller">
+        <div class="cb-bestseller-bg"></div>
+        <div class="cb-bestseller-overlay"></div>
+        <div class="cb-bestseller-content">
+          <div class="cb-bestseller-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            Best Seller
           </div>
-        </a>
-        {% endfor %}
+          <h3 class="cb-bestseller-name">Omega Internal</h3>
+          <p class="cb-bestseller-desc">Our most popular premium game enhancement tool trusted by thousands of players.</p>
+          <a href="{{ '/all-products' | shopUrl }}" class="cb-bestseller-btn">
+            View Product
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
       </div>
+
+      <!-- Secure Payments card -->
+      <div class="cb-card cb-card--payments">
+        <div>
+          <div class="cb-card-label">Security</div>
+          <h3 class="cb-card-heading">Secure Payments</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.4);margin:4px 0 0;">We support all major payment methods with end-to-end encryption.</p>
+        </div>
+        <div class="cb-payment-track-wrap">
+          <div class="cb-payment-track">
+            <span class="cb-payment-pill">💳 Visa</span>
+            <span class="cb-payment-pill">🅿️ PayPal</span>
+            <span class="cb-payment-pill">💳 Mastercard</span>
+            <span class="cb-payment-pill">₿ Crypto</span>
+            <span class="cb-payment-pill">🍎 Apple Pay</span>
+            <span class="cb-payment-pill">🔵 Google Pay</span>
+            <span class="cb-payment-pill">💳 Visa</span>
+            <span class="cb-payment-pill">🅿️ PayPal</span>
+            <span class="cb-payment-pill">💳 Mastercard</span>
+            <span class="cb-payment-pill">₿ Crypto</span>
+            <span class="cb-payment-pill">🍎 Apple Pay</span>
+            <span class="cb-payment-pill">🔵 Google Pay</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instant Delivery card -->
+      <div class="cb-card cb-card--delivery">
+        <div>
+          <div class="cb-card-label">Speed</div>
+          <h3 class="cb-card-heading">Instant Delivery</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.4);margin:4px 0 0;">Products delivered immediately to your account after payment confirmation.</p>
+        </div>
+        <div class="cb-pipeline">
+          <div class="cb-pipe-node">
+            <div class="cb-pipe-icon" style="animation-delay:0s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            </div>
+            <span class="cb-pipe-label">Payment</span>
+          </div>
+          <div class="cb-pipe-line"></div>
+          <div class="cb-pipe-node">
+            <div class="cb-pipe-icon" style="animation-delay:0.8s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <span class="cb-pipe-label">Processing</span>
+          </div>
+          <div class="cb-pipe-line"></div>
+          <div class="cb-pipe-node">
+            <div class="cb-pipe-icon" style="animation-delay:1.6s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <span class="cb-pipe-label">Delivered</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
+
 </section>

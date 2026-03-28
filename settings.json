@@ -6,23 +6,23 @@
                 "hero": {
                     "type": "hero",
                     "properties": {
-                        "headline": "New stock arrived 🛺",
-                        "title": "BasilCheats is the <span class=\"text-accent-500\">number 1</span> destination for all your needs!",
-                        "subtitle": "Fine-tune your tactics to dominate your rivals.",
+                        "headline": "Trusted by over 740+ Satisfied Customers",
+                        "title": "Dominate your games with Bxxgie's Closet",
+                        "subtitle": "Premium game enhancements built for competitive players. Undetected, reliable, and updated daily.",
                         "show_searchbar": true,
                         "buttons": [
                             {
-                                "text": "Shop Now",
+                                "text": "Products",
                                 "icon": null,
-                                "link": "/products",
+                                "link": "/all-products",
                                 "new_tab": false,
                                 "color": "primary",
                                 "style": "regular"
                             },
                             {
-                                "text": "About Us",
+                                "text": "Sign In",
                                 "icon": null,
-                                "link": "#about-us",
+                                "link": "#",
                                 "new_tab": false,
                                 "color": "secondary",
                                 "style": "outline"
@@ -32,7 +32,7 @@
                         "height": "medium",
                         "text_width": "large",
                         "background_glow": true,
-                        "background_image": null,
+                        "background_image": "https://i.postimg.cc/sfwpf136/PURPLE-HERO.png",
                         "side_image": null,
                         "side_video_link": null
                     }
@@ -69,9 +69,9 @@
                 "products": {
                     "type": "products",
                     "properties": {
-                        "headline": "Promo 30% off! 💰",
-                        "title": "Shop here!",
-                        "subtitle": "Explore our exclusive products and offers, ranging from something to everything!",
+                        "headline": "Best Sellers",
+                        "title": "Featured Products",
+                        "subtitle": "Explore our premium game enhancement tools, trusted by thousands of players worldwide.",
                         "centered": true,
                         "show_searchbar": true
                     }
@@ -110,9 +110,9 @@
                 "socials": {
                     "type": "socials",
                     "properties": {
-                        "headline": "Follow Us 👇",
-                        "title": "Our Socials",
-                        "subtitle": "Stay up to date with our latest news and offers by following us on social media!",
+                        "headline": "Features",
+                        "title": "Why Choose Us",
+                        "subtitle": "Everything you need for the best gaming experience, backed by industry-leading security.",
                         "socials": [
                             {
                                 "name": "Discord",
@@ -140,14 +140,34 @@
                 "faq": {
                     "type": "faq",
                     "properties": {
-                        "headline": "Important Info 📝",
-                        "title": "FAQ",
-                        "subtitle": "Here are some of the most frequently asked questions about our products.",
+                        "headline": "Questions",
+                        "title": "Frequently Asked Questions",
+                        "subtitle": "Everything you need to know about Bxxgie's Closet products and services.",
                         "items_per_row": 1,
                         "items": [
                             {
-                                "question": "This is a question.",
-                                "answer": "This is the answer to the question."
+                                "question": "How do I receive my product after purchase?",
+                                "answer": "After completing your purchase, your product will be delivered instantly to your customer dashboard. You'll also receive a confirmation email with your download link and license key."
+                            },
+                            {
+                                "question": "Are your products safe and undetected?",
+                                "answer": "Yes, all our products undergo rigorous testing before release. We use advanced anti-detection technology and our security team monitors game updates 24/7 to ensure our products remain undetected."
+                            },
+                            {
+                                "question": "What payment methods do you accept?",
+                                "answer": "We accept all major payment methods including Visa, Mastercard, PayPal, cryptocurrency (Bitcoin, Ethereum, Litecoin), Apple Pay, and Google Pay. All transactions are secured with end-to-end encryption."
+                            },
+                            {
+                                "question": "How do I get support if I have issues?",
+                                "answer": "Our support team is available via our Discord server at discord.gg/bxxgie. We typically respond within a few hours. Premium customers receive priority support with faster response times."
+                            },
+                            {
+                                "question": "Do you offer refunds?",
+                                "answer": "We offer refunds within 24 hours of purchase if the product is not working as described and our support team is unable to resolve the issue. Please review our refund policy for full details."
+                            },
+                            {
+                                "question": "What if I get banned while using your products?",
+                                "answer": "While our products are designed to be undetected, we cannot guarantee immunity from all anti-cheat systems. We recommend following our usage guidelines and safety tips provided in the product documentation."
                             }
                         ]
                     }
@@ -160,6 +180,16 @@
                         "subtitle": "Check out our latest blog posts and stay updated with the latest news and trends.",
                         "amount": 4
                     }
+                },
+                "promoter": {
+                    "type": "promoter",
+                    "properties": {
+                        "badge": "💰 Earn Money",
+                        "title": "Join Our Media Programme",
+                        "description": "Partner with Bxxgie's Closet and earn commission by promoting our premium products to your audience. Join our exclusive affiliate programme and start earning today.",
+                        "link": "https://discord.gg/bxxgie",
+                        "image": "https://i.postimg.cc/V6P3NDWb/PROMOTER-BXXGIES.png"
+                    }
                 }
             },
             "components_order": [
@@ -170,6 +200,7 @@
                 "feedbacks",
                 "socials",
                 "faq",
+                "promoter",
                 "blog-posts"
             ]
         },
@@ -396,7 +427,7 @@
     },
     "global": {
         "properties": {
-            "accent_color": "#00ff00",
+            "accent_color": "#9900ff",
             "background_color": "#121212",
             "text_primary_color": "#ffffff",
             "text_accent_color": "#ffffff",
@@ -438,18 +469,18 @@
                 "show_logo": true,
                 "left_links": [
                     {
-                        "text": "Home",
-                        "link": "/",
+                        "text": "Store",
+                        "link": "/all-products",
                         "shape": "regular"
                     },
                     {
                         "text": "Products",
-                        "link": "/products",
+                        "link": "/all-products",
                         "shape": "regular"
                     },
                     {
-                        "text": "Feedback",
-                        "link": "/feedback",
+                        "text": "Downloads",
+                        "link": "/customer/dashboard",
                         "shape": "regular"
                     },
                     {
@@ -458,9 +489,15 @@
                         "shape": "regular"
                     },
                     {
-                        "text": "Blog",
-                        "link": "/blog",
+                        "text": "Trust Profile",
+                        "link": "/feedback",
                         "shape": "regular"
+                    },
+                    {
+                        "text": "Discord",
+                        "link": "https://discord.gg/bxxgie",
+                        "shape": "regular",
+                        "new_tab": true
                     }
                 ],
                 "right_links": [],
@@ -470,30 +507,18 @@
             },
             "footer": {
                 "show_shop_name": true,
-                "show_logo": false,
+                "show_logo": true,
                 "show_socials": true,
-                "copyright": "Copyright © {{ shop.name }} {{ '' | currentYear }}",
-                "links_title": "Navigation",
+                "copyright": "© Bxxgie's Closet 2026. All Rights Reserved. · Developed by Cypher Designs",
+                "links_title": "Store",
                 "links": [
                     {
-                        "text": "Home",
-                        "link": "/"
-                    },
-                    {
-                        "text": "Products",
-                        "link": "/products"
+                        "text": "All Products",
+                        "link": "/all-products"
                     },
                     {
                         "text": "Feedback",
                         "link": "/feedback"
-                    },
-                    {
-                        "text": "Status",
-                        "link": "/status"
-                    },
-                    {
-                        "text": "Blog",
-                        "link": "/blog"
                     }
                 ],
                 "links_2_title": "My Account",
