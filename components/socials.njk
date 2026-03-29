@@ -1,43 +1,150 @@
 <section id="{{ componentId }}" class="component" data-component-id="{{ componentId }}">
-  <div class="container mx-auto flex flex-col px-4 mb-16 lg:mb-32">
+  <div class="container mx-auto px-4 mb-16 lg:mb-32">
+
     {% if properties.headline or properties.title or properties.subtitle %}
-    <div class="flex flex-col gap-4 mb-8 text-center">
+    <div class="flex flex-col items-center text-center gap-4 mb-10" data-dsr>
       {% if properties.headline %}
-      <div>
-        <span class="inline-block px-6 py-2 rounded-full border-2 border-white/5 bg-white/5 text-accent-100 text-sm font-semibold hover:translate-y-[-2px] transition-transform duration-300 ease-in-out" data-dsr>
-          {{ properties.headline | renderString }}
-        </span>
-      </div>
+      <span class="section-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        {{ properties.headline | renderString }}
+      </span>
       {% endif %}
       {% if properties.title %}
-      <h2 class="text-4xl lg:text-5xl font-bold text-t-primary" data-dsr>
+      <h2 class="text-4xl lg:text-5xl font-bold" style="background:linear-gradient(180deg,#fff 30%,#9900ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
         {{ properties.title | renderString }}
       </h2>
       {% endif %}
       {% if properties.subtitle %}
-      <p class="text-base text-t-primary/50" data-dsr>
-        {{ properties.subtitle | renderString }}
-      </p>
+      <p class="text-base" style="color:rgba(255,255,255,.5);">{{ properties.subtitle | renderString }}</p>
       {% endif %}
     </div>
     {% endif %}
 
-    <div class="p-8 rounded-xl border-2 border-white/5 bg-black/5 backdrop-blur-2xl overflow-hidden relative lg:p-16" data-dsr>
-      <div class="mx-auto absolute -z-10 aspect-square rounded-full -translate-y-1/3 left-0 top-0 -translate-x-1/3 blur-3xl bg-accent-500/40 w-[10%]" aria-hidden="true"></div>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-[repeat(auto-fit,_minmax(12rem,_1fr))]">
-        {% for social in properties.socials %}
-        <a href="{{ social.link | renderString }}" target="_blank" class="flex flex-col items-center gap-4 text-t-primary hover:text-accent-500">
-          <span class="inline-flex justify-center items-center size-12 rounded-xl relative overflow-hidden bg-accent-500/20 border border-accent-500 text-accent-500">
-            <i class="{{ social.icon }} fa-fw"></i>
-          </span>
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold">
-              {{ social.name }}
-            </h4>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
+    {% if properties.socials and properties.socials|length > 0 %}
+    <!-- Fallback: render social links if configured in settings -->
+    <div class="bento-grid" data-dsr>
+      {% for social in properties.socials %}
+      <a href="{{ social.link | renderString }}" target="_blank" class="bento-card" style="display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;justify-content:center;min-height:100px;">
+        <span style="display:inline-flex;justify-content:center;align-items:center;width:48px;height:48px;border-radius:12px;background:rgba(153,0,255,.15);border:1px solid rgba(153,0,255,.35);color:#9900ff;">
+          <i class="{{ social.icon }} fa-fw fa-lg"></i>
+        </span>
+        <h4 style="font-size:15px;font-weight:700;color:#fff;text-align:center;">{{ social.name }}</h4>
+      </a>
+      {% endfor %}
     </div>
+    {% else %}
+    <!-- Default bento grid: Why Choose Us -->
+    <div class="bento-grid" data-dsr>
+
+      <!-- Card 1: Best Seller (tall) -->
+      <div class="bento-card bento-card--tall" style="display:flex;flex-direction:column;justify-content:space-between;min-height:280px;">
+        <div>
+          <div class="bento-label">Best Seller</div>
+          <div class="bento-title">Top Rated Product</div>
+          <div class="bento-sub">Our community's most loved item — battle-tested and trusted by thousands of players worldwide.</div>
+        </div>
+        <div style="margin-top:auto;padding-top:24px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:80px;height:80px;border-radius:16px;background:rgba(153,0,255,.15);border:1px solid rgba(153,0,255,.35);display:flex;align-items:center;justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9900ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <a href="{{ '/products' | shopUrl }}" class="pcard-buy-btn" style="margin-top:20px;justify-content:center;">
+          View Products
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 2: Secure Payments -->
+      <div class="bento-card">
+        <div class="bento-label">Payments</div>
+        <div class="bento-title">Secure Payments</div>
+        <div class="bento-sub">All major payment methods supported — fast, encrypted, and 100% secure.</div>
+        <div class="pay-strip">
+          <div class="pay-strip__inner">
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Credit Card
+            </span>
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              PayPal
+            </span>
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Crypto
+            </span>
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Debit Card
+            </span>
+            <!-- duplicate for seamless loop -->
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Credit Card
+            </span>
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              PayPal
+            </span>
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Crypto
+            </span>
+            <span class="pay-chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Debit Card
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Instant Delivery -->
+      <div class="bento-card">
+        <div class="bento-label">Delivery</div>
+        <div class="bento-title">Instant Delivery</div>
+        <div class="bento-sub">Receive your order the moment payment clears — no waiting, no delays.</div>
+        <div class="pipeline">
+          <div class="pipeline-node">
+            <div class="pipeline-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/></svg>
+            </div>
+            <span class="pipeline-label">Pay</span>
+          </div>
+          <div class="pipeline-line"></div>
+          <div class="pipeline-node pipeline-node--active">
+            <div class="pipeline-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <span class="pipeline-label">Process</span>
+          </div>
+          <div class="pipeline-line"></div>
+          <div class="pipeline-node">
+            <div class="pipeline-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="pipeline-label">Delivered</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Safe & Quality -->
+      <div class="bento-card" style="text-align:center;">
+        <div class="bento-label">Quality</div>
+        <div class="bento-title">Safe &amp; Quality</div>
+        <div class="bento-sub">Every product is tested and verified for safety and performance before release.</div>
+        <div class="rings">
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#9900ff;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {% endif %}
+
   </div>
 </section>
