@@ -397,7 +397,7 @@
     "global": {
         "properties": {
             "accent_color": "#9900ff",
-            "background_color": "#121212",
+            "background_color": "#080808",
             "text_primary_color": "#ffffff",
             "text_accent_color": "#ffffff",
             "font": "Rubik",
@@ -414,23 +414,7 @@
         },
         "components": {
             "announcement": {
-                "announcements": [
-                    {
-                        "text": "💥 New Premium Theme Available!",
-                        "link": null,
-                        "new_tab": false
-                    },
-                    {
-                        "text": "🔥 Spice Up Your Shop with New Features!",
-                        "link": null,
-                        "new_tab": false
-                    },
-                    {
-                        "text": "⌛ What Are You Waiting For? Upgrade Now!",
-                        "link": null,
-                        "new_tab": false
-                    }
-                ],
+                "announcements": [],
                 "animation": "scroll"
             },
             "navbar": {
@@ -438,7 +422,7 @@
                 "show_logo": true,
                 "left_links": [
                     {
-                        "text": "Home",
+                        "text": "Store",
                         "link": "/",
                         "shape": "regular"
                     },
@@ -448,8 +432,8 @@
                         "shape": "regular"
                     },
                     {
-                        "text": "Feedback",
-                        "link": "/feedback",
+                        "text": "Downloads",
+                        "link": "/downloads",
                         "shape": "regular"
                     },
                     {
@@ -458,9 +442,15 @@
                         "shape": "regular"
                     },
                     {
-                        "text": "Blog",
-                        "link": "/blog",
+                        "text": "Trust Profile",
+                        "link": "/feedback",
                         "shape": "regular"
+                    },
+                    {
+                        "text": "Discord",
+                        "link": "https://discord.gg/",
+                        "shape": "regular",
+                        "new_tab": true
                     }
                 ],
                 "right_links": [],
@@ -472,11 +462,11 @@
                 "show_shop_name": true,
                 "show_logo": false,
                 "show_socials": true,
-                "copyright": "Copyright © {{ shop.name }} {{ '' | currentYear }}",
+                "copyright": "Copyright © {{ shop.name }} {{ \"\" | currentYear }}. All rights reserved.",
                 "links_title": "Navigation",
                 "links": [
                     {
-                        "text": "Home",
+                        "text": "Store",
                         "link": "/"
                     },
                     {
@@ -484,16 +474,16 @@
                         "link": "/products"
                     },
                     {
-                        "text": "Feedback",
-                        "link": "/feedback"
+                        "text": "Downloads",
+                        "link": "/downloads"
                     },
                     {
                         "text": "Status",
                         "link": "/status"
                     },
                     {
-                        "text": "Blog",
-                        "link": "/blog"
+                        "text": "Trust Profile",
+                        "link": "/feedback"
                     }
                 ],
                 "links_2_title": "My Account",
